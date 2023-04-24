@@ -1,8 +1,8 @@
 import { range } from 'dummy/helpers/range';
 import { module, test } from 'qunit';
 
-module('Unit | Helper | range', function() {
-  test('it generates a range', function(assert) {
+module('Unit | Helper | range', function () {
+  test('it generates a range', function (assert) {
     let expectedResult1 = [1, 2, 3, 4];
     let expectedResult2 = [10, 11, 12, 13, 14];
     let expectedResult3 = [-1, 0, 1];
@@ -15,24 +15,32 @@ module('Unit | Helper | range', function() {
     assert.deepEqual(result3, expectedResult3, 'should generate -1 to 1');
   });
 
-  test('it generates a negative range', function(assert) {
+  test('it generates a negative range', function (assert) {
     let expectedResult = [5, 4, 3, 2, 1];
     let result = range([5, 0]);
 
     assert.deepEqual(result, expectedResult, 'should generate 5 to 1');
   });
 
-  test('it generates an inclusive range', function(assert) {
+  test('it generates an inclusive range', function (assert) {
     let expectedResult = [1, 2, 3, 4, 5];
     let result = range([1, 5, true]);
 
-    assert.deepEqual(result, expectedResult, 'should generate 1 to 5 inclusive');
+    assert.deepEqual(
+      result,
+      expectedResult,
+      'should generate 1 to 5 inclusive'
+    );
   });
 
-  test('it generates an inclusive negative range', function(assert) {
+  test('it generates an inclusive negative range', function (assert) {
     let expectedResult = [5, 4, 3, 2, 1, 0];
     let result = range([5, 0, true]);
 
-    assert.deepEqual(result, expectedResult, 'should generate 5 to 0 inclusive');
+    assert.deepEqual(
+      result,
+      expectedResult,
+      'should generate 5 to 0 inclusive'
+    );
   });
 });

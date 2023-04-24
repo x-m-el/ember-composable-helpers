@@ -4,7 +4,7 @@ import { helper } from '@ember/component/helper';
 import asArray from '../utils/as-array';
 
 const collator = new Intl.Collator(undefined, {
-  sensitivity: 'base'
+  sensitivity: 'base',
 });
 
 function normalizeToBoolean(val) {
@@ -60,7 +60,7 @@ function sortDesc(key, a, b) {
   }
 
   if (aValue < bValue) {
-    return 1
+    return 1;
   } else if (aValue > bValue) {
     return -1;
   }
@@ -98,7 +98,7 @@ function sortAsc(key, a, b) {
   }
 
   if (aValue < bValue) {
-    return -1
+    return -1;
   } else if (aValue > bValue) {
     return 1;
   }
@@ -109,7 +109,7 @@ function sortAsc(key, a, b) {
 class SortBy {
   constructor(...args) {
     let [array] = args;
-    if (typeof array.toArray === "function") {
+    if (typeof array.toArray === 'function') {
       array = array.toArray();
     }
 
@@ -117,7 +117,7 @@ class SortBy {
   }
 
   comparator(key) {
-    return (typeof key === 'function') ? key : this.defaultSort(key);
+    return typeof key === 'function' ? key : this.defaultSort(key);
   }
 
   defaultSort(sortKey) {
@@ -142,10 +142,10 @@ class BubbleSort extends SortBy {
   perform(keys = []) {
     let swapped = false;
 
-    let compFuncs = keys.map(key => this.comparator(key));
+    let compFuncs = keys.map((key) => this.comparator(key));
     let compFunc = (a, b) => {
       for (let i = 0; i < compFuncs.length; i += 1) {
-        let result = compFuncs[i](a,b);
+        let result = compFuncs[i](a, b);
         if (result === 0) {
           continue;
         }
@@ -155,9 +155,14 @@ class BubbleSort extends SortBy {
     };
     for (let i = 1; i < this.array.length; i += 1) {
       for (let j = 0; j < this.array.length - i; j += 1) {
-        let shouldSwap = normalizeToBoolean(compFunc(this.array[j+1], this.array[j]));
+        let shouldSwap = normalizeToBoolean(
+          compFunc(this.array[j + 1], this.array[j])
+        );
         if (shouldSwap) {
-          [this.array[j], this.array[j+1]] = [this.array[j+1], this.array[j]];
+          [this.array[j], this.array[j + 1]] = [
+            this.array[j + 1],
+            this.array[j],
+          ];
 
           swapped = true;
         }
@@ -177,7 +182,7 @@ export function sortBy(params) {
   let array = asArray(sortParams.pop());
   let sortKeys = sortParams;
 
-  if (!array || (!sortKeys || sortKeys.length === 0)) {
+  if (!array || !sortKeys || sortKeys.length === 0) {
     return [];
   }
 

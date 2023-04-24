@@ -4,8 +4,8 @@ var intersection = require('../../lib/intersection');
 /* eslint-disable node/no-unpublished-require */
 var expect = require('chai').expect;
 
-describe('intersection', function() {
-  it('finds the intersection between 2 arrays', function() {
+describe('intersection', function () {
+  it('finds the intersection between 2 arrays', function () {
     var a = ['foo', 'bar', 'baz'];
     var b = ['bar', 'baz', 'qux'];
     var expectedResult = ['bar', 'baz'];
@@ -14,7 +14,7 @@ describe('intersection', function() {
     expect(result).to.eql(expectedResult);
   });
 
-  it('finds the intersection between 2 arrays', function() {
+  it('finds the intersection between 2 arrays', function () {
     var a = ['foo', 'bar', 'baz'];
     var b = ['bar', 'baz', 'qux'];
     var expectedResult = ['bar', 'baz'];

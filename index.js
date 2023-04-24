@@ -9,7 +9,7 @@ var StripBadReexports = require('./lib/strip-bad-reexports');
 module.exports = {
   name: require('./package').name,
 
-  included: function(app) {
+  included: function (app) {
     this._super.included.apply(this, arguments);
 
     // see: https://github.com/ember-cli/ember-cli/issues/3718
@@ -19,44 +19,52 @@ module.exports = {
 
     this.app = app;
 
-    var addonOptions = (this.parent && this.parent.options) || (this.app && this.app.options) || {};
+    var addonOptions =
+      (this.parent && this.parent.options) ||
+      (this.app && this.app.options) ||
+      {};
     var config = addonOptions[this.name] || {};
     this.whitelist = this.generateWhitelist(config);
     this.blacklist = this.generateBlacklist(config);
   },
 
-  treeForAddon: function(tree) {
+  treeForAddon: function (tree) {
     tree = this.filterHelpers(tree, new RegExp(/^helpers\//, 'i'));
     tree = new StripBadReexports(tree, [`index.js`]);
     return this._super.treeForAddon.call(this, tree);
   },
 
-  treeForApp: function(tree) {
+  treeForApp: function (tree) {
     tree = this.filterHelpers(tree, new RegExp(/^helpers\//, 'i'));
     return this._super.treeForApp.call(this, tree);
   },
 
-  filterHelpers: function(tree, regex) {
+  filterHelpers: function (tree, regex) {
     var whitelist = this.whitelist;
     var blacklist = this.blacklist;
     var _this = this;
 
     // exit early if no opts defined
-    if ((!whitelist || whitelist.length === 0) && (!blacklist || blacklist.length === 0)) {
+    if (
+      (!whitelist || whitelist.length === 0) &&
+      (!blacklist || blacklist.length === 0)
+    ) {
       return tree;
     }
 
     return new Funnel(tree, {
-      exclude: [function(name) {
-        return _this.exclusionFilter(name, regex, {
-          whitelist: whitelist,
-          blacklist: blacklist
-        });
-      }]
+      exclude: [
+        function (name) {
+          return _this.exclusionFilter(name, regex, {
+            whitelist: whitelist,
+            blacklist: blacklist,
+          });
+        },
+      ],
     });
   },
 
-  exclusionFilter: function(name, regex, lists) {
+  exclusionFilter: function (name, regex, lists) {
     var whitelist = lists.whitelist || [];
     var blacklist = lists.blacklist || [];
     var isAddonHelper = regex.test(name);
@@ -92,7 +100,7 @@ module.exports = {
     return !isWhitelisted || isBlacklisted;
   },
 
-  generateWhitelist: function(addonConfig) {
+  generateWhitelist: function (addonConfig) {
     var only = addonConfig.only || [];
     var except = addonConfig.except || [];
 
@@ -103,7 +111,7 @@ module.exports = {
     return only;
   },
 
-  generateBlacklist: function(addonConfig) {
+  generateBlacklist: function (addonConfig) {
     var only = addonConfig.only || [];
     var except = addonConfig.except || [];
 
@@ -112,5 +120,5 @@ module.exports = {
     }
 
     return except;
-  }
+  },
 };

@@ -11,11 +11,14 @@ export function previous(currentValue, array, useDeepEqual = false) {
     return;
   }
 
-  return currentIndex === 0 ? currentValue : emberArray(array).objectAt(currentIndex - 1);
+  return currentIndex === 0
+    ? currentValue
+    : emberArray(array).objectAt(currentIndex - 1);
 }
 
-export default helper(function(params) {
-  let { currentValue, array, useDeepEqual } = getValueArrayAndUseDeepEqualFromParams(params);
+export default helper(function (params) {
+  let { currentValue, array, useDeepEqual } =
+    getValueArrayAndUseDeepEqualFromParams(params);
 
   return previous(currentValue, array, useDeepEqual);
 });

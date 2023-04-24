@@ -8,14 +8,14 @@ export function invoke([methodName, ...args]) {
   let obj = args.pop();
 
   if (isEmberArray(obj)) {
-    return function() {
+    return function () {
       let promises = obj.map((item) => item[methodName]?.(...args));
 
       return all(promises);
     };
   }
 
-  return function() {
+  return function () {
     return obj[methodName]?.(...args);
   };
 }

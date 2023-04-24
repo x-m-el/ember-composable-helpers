@@ -3,14 +3,14 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | entries', function(hooks) {
+module('Integration | Helper | entries', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it return object entries', async function(assert) {
+  test('it return object entries', async function (assert) {
     let object = {
       a: 1,
-      b: 2
-    }
+      b: 2,
+    };
 
     this.set('object', object);
 
@@ -19,16 +19,16 @@ module('Integration | Helper | entries', function(hooks) {
     assert.dom(this.element).hasText('a1b2');
   });
 
-  test('it works with sort-by', async function(assert) {
+  test('it works with sort-by', async function (assert) {
     let object = {
       b: 2,
       a: 1,
       d: 4,
-      c: 3
-    }
+      c: 3,
+    };
 
     this.set('object', object);
-    this.set('myOwnSortBy', function(a, b) {
+    this.set('myOwnSortBy', function (a, b) {
       if (a[1] > b[1]) {
         return 1;
       } else if (a[1] < b[1]) {
@@ -41,7 +41,7 @@ module('Integration | Helper | entries', function(hooks) {
     assert.dom(this.element).hasText('abcd');
   });
 
-  test('it handles undefined input', async function(assert) {
+  test('it handles undefined input', async function (assert) {
     await render(hbs`
       {{#each (entries undefined) as |key|}}{{key}}{{/each}}
     `);
@@ -49,7 +49,7 @@ module('Integration | Helper | entries', function(hooks) {
     assert.dom(this.element).hasText('');
   });
 
-  test('it handles null input', async function(assert) {
+  test('it handles null input', async function (assert) {
     await render(hbs`
       {{#each (entries null) as |key|}}{{key}}{{/each}}
     `);

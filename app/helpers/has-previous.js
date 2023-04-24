@@ -1,1 +1,4 @@
-export { default, hasPrevious } from 'ember-composable-helpers/helpers/has-previous';
+export {
+  default,
+  hasPrevious,
+} from 'ember-composable-helpers/helpers/has-previous';

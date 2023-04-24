@@ -12,7 +12,7 @@ export function chunk(num, array) {
     length = array.length;
   }
 
-  array = asArray(array)
+  array = asArray(array);
 
   if (!length || size < 1) {
     return [];
@@ -29,6 +29,6 @@ export function chunk(num, array) {
   }
 }
 
-export default helper(function([num, array]) {
+export default helper(function ([num, array]) {
   return chunk(num, array);
 });

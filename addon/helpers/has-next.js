@@ -13,8 +13,9 @@ export function hasNext(currentValue, maybeArray, useDeepEqual = false) {
   return isNotSameValue && isPresent(nextValue);
 }
 
-export default helper(function(params) {
-  let { currentValue, array, useDeepEqual } = getValueArrayAndUseDeepEqualFromParams(params);
+export default helper(function (params) {
+  let { currentValue, array, useDeepEqual } =
+    getValueArrayAndUseDeepEqualFromParams(params);
 
   return hasNext(currentValue, array, useDeepEqual);
 });

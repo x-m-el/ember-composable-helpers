@@ -5,10 +5,10 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{intersect}}', function(hooks) {
+module('Integration | Helper | {{intersect}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('It takes the intersection of the given arrays', async function(assert) {
+  test('It takes the intersection of the given arrays', async function (assert) {
     this.set('array1', ['foo', 'bar']);
     this.set('array2', ['foo', 'baz']);
     this.set('array3', ['qux', 'foo']);
@@ -22,7 +22,7 @@ module('Integration | Helper | {{intersect}}', function(hooks) {
     assert.dom().hasText('foo', 'intersect shows words common to all arrays');
   });
 
-  test('It watches for changes', async function(assert) {
+  test('It watches for changes', async function (assert) {
     this.set('array1', emberArray(['foo', 'bar']));
     this.set('array2', emberArray(['foo', 'baz']));
     this.set('array3', emberArray(['qux', 'foo']));
@@ -33,13 +33,13 @@ module('Integration | Helper | {{intersect}}', function(hooks) {
       {{~/each~}}
     `);
 
-    run(() => this.get('array2').pushObject('bar'));
-    run(() => this.get('array3').pushObject('bar'));
+    run(() => this.array2.pushObject('bar'));
+    run(() => this.array3.pushObject('bar'));
 
     assert.dom().hasText('foobar', 'bar is added');
   });
 
-  test('it allows null array', async function(assert) {
+  test('it allows null array', async function (assert) {
     this.set('array', null);
 
     await render(hbs`
@@ -52,7 +52,7 @@ module('Integration | Helper | {{intersect}}', function(hooks) {
     assert.dom().hasText('this is all that will render', 'no error is thrown');
   });
 
-  test('it allows undefined array', async function(assert) {
+  test('it allows undefined array', async function (assert) {
     this.set('array', undefined);
 
     await render(hbs`
@@ -65,7 +65,7 @@ module('Integration | Helper | {{intersect}}', function(hooks) {
     assert.dom().hasText('this is all that will render', 'no error is thrown');
   });
 
-  test('it allows a first parameter null array', async function(assert) {
+  test('it allows a first parameter null array', async function (assert) {
     this.set('array1', null);
     this.set('array2', ['foo', 'baz']);
 

@@ -12,6 +12,6 @@ export function flatten(array) {
   }, []);
 }
 
-export default helper(function([array]) {
+export default helper(function ([array]) {
   return flatten(array);
 });

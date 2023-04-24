@@ -3,7 +3,6 @@ import { module, test } from 'qunit';
 import EmberObject from '@ember/object';
 
 module('Unit | Utility | as-array', function () {
-
   test('it works for [undefined]', function (assert) {
     let result = asArray();
     assert.equal(result.length, 0);
@@ -35,13 +34,13 @@ module('Unit | Utility | as-array', function () {
 
   test('it works for [Object.toArray()]', function (assert) {
     let result = asArray({
-      a: 1, toArray() {
+      a: 1,
+      toArray() {
         return [1, 2, 3];
-      }
+      },
     });
     assert.equal(result.length, 3);
   });
-
 
   test('it works for [Strings]', function (assert) {
     let result = asArray('abc');
@@ -68,9 +67,11 @@ module('Unit | Utility | as-array', function () {
     try {
       const item = new Promise((r) => r());
       item.content = null;
-      asArray(item)
+      asArray(item);
     } catch (e) {
-      assert.ok(e.toString().includes('Unknown content type in array-like object'));
+      assert.ok(
+        e.toString().includes('Unknown content type in array-like object')
+      );
     }
   });
 
@@ -89,9 +90,10 @@ module('Unit | Utility | as-array', function () {
   test('it works for object-like content in array-proxy-like items [objects toArray]', function (assert) {
     const item = new Promise((r) => r());
     item.content = {
-      a: 1, toArray() {
-        return [1, 2, 3]
-      }
+      a: 1,
+      toArray() {
+        return [1, 2, 3];
+      },
     };
     assert.equal(asArray(item).length, 3);
   });
@@ -103,7 +105,11 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it works for ember object with toArray property [EmberObject]', function (assert) {
-    const item = EmberObject.extend({ toArray() { return [1, 2, 3] } }).create();
+    const item = EmberObject.extend({
+      toArray() {
+        return [1, 2, 3];
+      },
+    }).create();
     assert.equal(asArray(item).length, 3);
   });
 
@@ -121,7 +127,9 @@ module('Unit | Utility | as-array', function () {
       const item = new Promise((r) => r());
       asArray(item);
     } catch (e) {
-      assert.ok(e.toString().includes('Promise-like objects is not supported as arrays'));
+      assert.ok(
+        e.toString().includes('Promise-like objects is not supported as arrays')
+      );
     }
   });
 
@@ -148,7 +156,9 @@ module('Unit | Utility | as-array', function () {
       const item = EmberObject.extend({}).create();
       asArray(item);
     } catch (e) {
-      assert.ok(e.toString().includes('EmberObjects is not supported as arrays'));
+      assert.ok(
+        e.toString().includes('EmberObjects is not supported as arrays')
+      );
     }
   });
 });

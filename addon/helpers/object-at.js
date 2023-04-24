@@ -11,6 +11,6 @@ export function objectAt(index, array) {
   return A(array).objectAt(index);
 }
 
-export default helper(function([index, array]) {
+export default helper(function ([index, array]) {
   return objectAt(index, array);
 });

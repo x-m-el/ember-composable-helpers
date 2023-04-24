@@ -5,30 +5,33 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{reduce}}', function(hooks) {
+module('Integration | Helper | {{reduce}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
+    this.send = (actionName, ...args) =>
+      this.actions[actionName].apply(this, args);
   });
 
-  test('It accepts a callback', async function(assert) {
+  test('It accepts a callback', async function (assert) {
     this.set('array', emberArray([1, 2, 3]));
 
-    this.actions.sum = (previousValue, currentValue) => previousValue + currentValue;
+    this.actions.sum = (previousValue, currentValue) =>
+      previousValue + currentValue;
 
     await render(hbs`{{reduce (action "sum") 0 this.array}}`);
 
     assert.dom().hasText('6');
   });
 
-  test('It re-evaluates when array content changes', async function(assert) {
+  test('It re-evaluates when array content changes', async function (assert) {
     let array = emberArray([1, 2, 3]);
 
     this.set('array', array);
 
-    this.actions.sum = (previousValue, currentValue) => previousValue + currentValue;
+    this.actions.sum = (previousValue, currentValue) =>
+      previousValue + currentValue;
 
     await render(hbs`{{reduce (action "sum") 0 this.array}}`);
 
@@ -39,11 +42,12 @@ module('Integration | Helper | {{reduce}}', function(hooks) {
     assert.dom().hasText('10');
   });
 
-  test('It re-evaluates when initial value changes', async function(assert) {
+  test('It re-evaluates when initial value changes', async function (assert) {
     this.set('array', emberArray([1, 2, 3]));
     this.set('initialValue', 0);
 
-    this.actions.sum = (previousValue, currentValue) => previousValue + currentValue;
+    this.actions.sum = (previousValue, currentValue) =>
+      previousValue + currentValue;
 
     await render(hbs`{{reduce (action "sum") this.initialValue this.array}}`);
 

@@ -2,8 +2,8 @@ import { helper } from '@ember/component/helper';
 import isPromise from '../utils/is-promise';
 
 export function queue(actions = []) {
-  return function(...args) {
-    let invokeWithArgs = function(acc, curr) {
+  return function (...args) {
+    let invokeWithArgs = function (acc, curr) {
       if (isPromise(acc)) {
         return acc.then(() => curr(...args));
       }

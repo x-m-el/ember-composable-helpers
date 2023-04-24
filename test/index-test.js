@@ -5,65 +5,65 @@ var addonIndex = require('../index');
 /* eslint-disable node/no-unpublished-require */
 var expect = require('chai').expect;
 
-describe('index', function() {
-  describe('#exclusionFilter', function() {
-    it('should return `true` if a file is in the blacklist', function() {
+describe('index', function () {
+  describe('#exclusionFilter', function () {
+    it('should return `true` if a file is in the blacklist', function () {
       var name = 'range';
       var dummyRegex = new RegExp('.*');
       var lists = {
-        blacklist: ['range', 'inc']
+        blacklist: ['range', 'inc'],
       };
       var result = addonIndex.exclusionFilter(name, dummyRegex, lists);
 
       expect(result).to.be.true;
     });
 
-    it('should return `false` if a file is not in the blacklist', function() {
+    it('should return `false` if a file is not in the blacklist', function () {
       var name = 'pipe';
       var dummyRegex = new RegExp('.*');
       var lists = {
-        blacklist: ['range', 'inc']
+        blacklist: ['range', 'inc'],
       };
       var result = addonIndex.exclusionFilter(name, dummyRegex, lists);
 
       expect(result).to.be.false;
     });
 
-    it('should return `false` if a file is in the whitelist', function() {
+    it('should return `false` if a file is in the whitelist', function () {
       var name = 'range';
       var dummyRegex = new RegExp('.*');
       var lists = {
-        whitelist: ['range', 'inc']
+        whitelist: ['range', 'inc'],
       };
       var result = addonIndex.exclusionFilter(name, dummyRegex, lists);
 
       expect(result).to.be.false;
     });
 
-    it('should return `true` if a file is not in the whitelist', function() {
+    it('should return `true` if a file is not in the whitelist', function () {
       var name = 'range';
       var dummyRegex = new RegExp('.*');
       var lists = {
-        whitelist: ['inc']
+        whitelist: ['inc'],
       };
       var result = addonIndex.exclusionFilter(name, dummyRegex, lists);
 
       expect(result).to.be.true;
     });
 
-    it('should return `false` if a file is in both the whitelist and blacklist', function() {
+    it('should return `false` if a file is in both the whitelist and blacklist', function () {
       var name = 'range';
       var dummyRegex = new RegExp('.*');
       var lists = {
         blacklist: ['range'],
-        whitelist: ['range', 'inc']
+        whitelist: ['range', 'inc'],
       };
       var result = addonIndex.exclusionFilter(name, dummyRegex, lists);
 
       expect(result).to.be.false;
     });
 
-    it('should return `false` if both lists are empty', function() {
+    it('should return `false` if both lists are empty', function () {
       var name = 'range';
       var dummyRegex = new RegExp('.*');
       var lists = {};
@@ -73,11 +73,11 @@ describe('index', function() {
     });
   });
 
-  describe('#generateWhitelist', function() {
-    it('should return files to whitelist when both `only` and `expect` are defined' , function() {
+  describe('#generateWhitelist', function () {
+    it('should return files to whitelist when both `only` and `expect` are defined', function () {
       var dummyConfig = {
         only: ['range', 'pipe', 'inc', 'dec'],
-        except: ['inc']
+        except: ['inc'],
       };
       var expectedResult = ['range', 'pipe', 'dec'];
       var result = addonIndex.generateWhitelist(dummyConfig);
@@ -85,9 +85,9 @@ describe('index', function() {
       expect(result).to.eql(expectedResult);
     });
 
-    it('should return files to whitelist when `only` is defined' , function() {
+    it('should return files to whitelist when `only` is defined', function () {
       var dummyConfig = {
-        only: ['range', 'pipe', 'inc', 'dec']
+        only: ['range', 'pipe', 'inc', 'dec'],
       };
       var expectedResult = ['range', 'pipe', 'inc', 'dec'];
       var result = addonIndex.generateWhitelist(dummyConfig);
@@ -96,11 +96,11 @@ describe('index', function() {
     });
   });
 
-  describe('#generateBlacklist', function() {
-    it('should return files to blacklist when both `only` and `expect` are defined' , function() {
+  describe('#generateBlacklist', function () {
+    it('should return files to blacklist when both `only` and `expect` are defined', function () {
       var dummyConfig = {
         only: ['range', 'pipe', 'inc', 'dec'],
-        except: ['inc']
+        except: ['inc'],
       };
       var expectedResult = ['inc'];
       var result = addonIndex.generateBlacklist(dummyConfig);
@@ -108,9 +108,9 @@ describe('index', function() {
       expect(result).to.eql(expectedResult);
     });
 
-    it('should return files to blacklist when `except` is defined' , function() {
+    it('should return files to blacklist when `except` is defined', function () {
       var dummyConfig = {
-        except: ['range', 'pipe', 'inc', 'dec']
+        except: ['range', 'pipe', 'inc', 'dec'],
       };
       var expectedResult = ['range', 'pipe', 'inc', 'dec'];
       var result = addonIndex.generateBlacklist(dummyConfig);

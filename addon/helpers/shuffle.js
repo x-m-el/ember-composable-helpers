@@ -9,7 +9,7 @@ export function shuffle(array, randomizer) {
   randomizer = (typeOf(randomizer) === 'function' && randomizer) || Math.random;
 
   while (count > 1) {
-    rand = Math.floor(randomizer() * (count--));
+    rand = Math.floor(randomizer() * count--);
 
     temp = array[count];
     array[count] = array[rand];
@@ -18,7 +18,7 @@ export function shuffle(array, randomizer) {
   return array;
 }
 
-export default helper(function([randomizer, array]) {
+export default helper(function ([randomizer, array]) {
   if (array === undefined) {
     array = randomizer;
     randomizer = undefined;
@@ -28,5 +28,5 @@ export default helper(function([randomizer, array]) {
     return [array];
   }
 
-  return shuffle(array, randomizer)
+  return shuffle(array, randomizer);
 });

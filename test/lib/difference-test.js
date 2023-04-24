@@ -4,8 +4,8 @@ var difference = require('../../lib/difference');
 /* eslint-disable node/no-unpublished-require */
 var expect = require('chai').expect;
 
-describe('difference', function() {
-  it('finds the difference between 2 arrays', function() {
+describe('difference', function () {
+  it('finds the difference between 2 arrays', function () {
     var a = ['foo', 'bar', 'baz'];
     var b = ['bar', 'baz', 'qux'];
     var expectedResult = ['foo'];
@@ -14,7 +14,7 @@ describe('difference', function() {
     expect(result).to.eql(expectedResult);
   });
 
-  it('finds the difference between 2 arrays', function() {
+  it('finds the difference between 2 arrays', function () {
     var a = ['foo', 'bar', 'baz'];
     var b = ['bar', 'baz', 'qux'];
     var expectedResult = ['qux'];

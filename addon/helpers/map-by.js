@@ -8,7 +8,7 @@ export function mapBy([byPath, array]) {
     return [];
   }
 
-  return asArray(array).map(item => get(item, byPath));
+  return asArray(array).map((item) => get(item, byPath));
 }
 
 export default helper(mapBy);

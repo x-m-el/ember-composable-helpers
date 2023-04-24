@@ -2,44 +2,44 @@ import { resolve, Promise } from 'rsvp';
 import isPromise from 'ember-composable-helpers/utils/is-promise';
 import { module, test } from 'qunit';
 
-module('Unit | Utility | is promise', function() {
+module('Unit | Utility | is promise', function () {
   let testData = [
     {
       value: resolve('foo'),
-      expected: true
+      expected: true,
     },
     {
       value: new Promise((resolve) => resolve('blah')),
-      expected: true
+      expected: true,
     },
     {
       value: { then() {}, catch() {}, finally() {} },
-      expected: true
+      expected: true,
     },
     {
       value: { then() {} },
-      expected: false
+      expected: false,
     },
     {
       value: 'blah',
-      expected: false
+      expected: false,
     },
     {
       value: 42,
-      expected: false
+      expected: false,
     },
     {
       value: ['meow'],
-      expected: false
+      expected: false,
     },
     {
       value: null,
-      expected: false
-    }
+      expected: false,
+    },
   ];
 
   testData.forEach(({ value, expected }) => {
-    test('it checks if an object is an instance of an RSVP.Promise', function(assert) {
+    test('it checks if an object is an instance of an RSVP.Promise', function (assert) {
       let result = isPromise(value);
 
       assert.equal(result, expected, `should be ${expected}`);

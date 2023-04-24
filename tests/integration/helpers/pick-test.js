@@ -3,15 +3,19 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { click, render } from '@ember/test-helpers';
 
-module('Integration | Helper | pick', function(hooks) {
+module('Integration | Helper | pick', function (hooks) {
   setupRenderingTest(hooks);
 
-  test("Works when used with {{on}} modifier and pipe", async function(assert) {
+  test('Works when used with {{on}} modifier and pipe', async function (assert) {
     assert.expect(1);
 
-    this.set('onFocus', function(value) {
-      assert.equal(value, 'pizza party', 'The action receives the correct value');
-    })
+    this.set('onFocus', function (value) {
+      assert.equal(
+        value,
+        'pizza party',
+        'The action receives the correct value'
+      );
+    });
 
     await render(hbs`
       <input
@@ -24,12 +28,16 @@ module('Integration | Helper | pick', function(hooks) {
     await click('#test-input');
   });
 
-  test("Shorthand works when used with {{on}} modifier and optional action is provided", async function(assert) {
+  test('Shorthand works when used with {{on}} modifier and optional action is provided', async function (assert) {
     assert.expect(1);
 
-    this.set('onFocus', function(value) {
-      assert.equal(value, 'pizza party', 'The action receives the correct value');
-    })
+    this.set('onFocus', function (value) {
+      assert.equal(
+        value,
+        'pizza party',
+        'The action receives the correct value'
+      );
+    });
 
     await render(hbs`
       <input

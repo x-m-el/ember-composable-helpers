@@ -2,28 +2,28 @@ import { get } from '@ember/object';
 import { toggle } from 'dummy/helpers/toggle';
 import { module, test } from 'qunit';
 
-module('Unit | Helper | toggle', function() {
-  test('it toggles the property', function(assert) {
+module('Unit | Helper | toggle', function () {
+  test('it toggles the property', function (assert) {
     let jimBob = { isAlive: false };
     let action = toggle(['isAlive', jimBob]);
     action();
 
-    assert.ok(get(jimBob, 'isAlive') === true, 'should be true');
+    assert.true(jimBob.isAlive, 'should be true');
   });
 
-  test('it correctly toggles non-boolean falsey values', function(assert) {
+  test('it correctly toggles non-boolean falsey values', function (assert) {
     let jimBob = { isAlive: undefined };
     let action = toggle(['isAlive', jimBob]);
     action();
 
-    assert.ok(get(jimBob, 'isAlive') === true, 'should be true');
+    assert.true(jimBob.isAlive, 'should be true');
   });
 
-  test('it correctly toggles non-boolean truthy values', function(assert) {
+  test('it correctly toggles non-boolean truthy values', function (assert) {
     let jimBob = { isAlive: {} };
     let action = toggle(['isAlive', jimBob]);
     action();
 
-    assert.ok(get(jimBob, 'isAlive') === false, 'should be false');
+    assert.false(jimBob.isAlive, 'should be false');
   });
 });

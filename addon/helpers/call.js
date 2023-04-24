@@ -14,14 +14,13 @@ import Helper from '@ember/component/helper';
  * @param {*=} thisArg - An optional `this` context
  */
 export function call([fn, thisArg]) {
-    if (fn) {
-        if (thisArg) {
-            return fn.apply(thisArg);
-        } else {
-            return fn();
-        }
+  if (fn) {
+    if (thisArg) {
+      return fn.apply(thisArg);
+    } else {
+      return fn();
     }
+  }
 }
 
 export default Helper.helper(call);
-

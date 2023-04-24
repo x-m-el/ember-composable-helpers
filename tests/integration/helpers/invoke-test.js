@@ -4,24 +4,25 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click } from '@ember/test-helpers';
 
-module('Integration | Helper | {{invoke}}', function(hooks) {
+module('Integration | Helper | {{invoke}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
+    this.send = (actionName, ...args) =>
+      this.actions[actionName].apply(this, args);
   });
 
-  test('it invokes methods and handles promises', async function(assert) {
+  test('it invokes methods and handles promises', async function (assert) {
     this.set('value', 2);
-    this.set('serverSideComputation', function(x) {
+    this.set('serverSideComputation', function (x) {
       return resolve(x * x);
     });
     this.actions.setValue = (x) => this.set('value', x);
 
     await render(hbs`
       <p>{{this.value}}</p>
-      <button {{action (pipe (invoke "serverSideComputation" 2 this) (action "setValue"))}}>
+      <button type="button" {{action (pipe (invoke "serverSideComputation" 2 this) (action "setValue"))}}>
         Calculate
       </button>
     `);
@@ -31,7 +32,7 @@ module('Integration | Helper | {{invoke}}', function(hooks) {
     assert.dom('p').hasText('4', 'should render 4');
   });
 
-  test('it invokes methods and handles promise arrays', async function(assert) {
+  test('it invokes methods and handles promise arrays', async function (assert) {
     class Square {
       constructor(side) {
         this.side = side;
@@ -43,12 +44,15 @@ module('Integration | Helper | {{invoke}}', function(hooks) {
 
     this.set('model', [new Square(1), new Square(2), new Square(3)]);
     this.actions.sumAreas = (x) => {
-      this.set('value', x.reduce((a, b) => a + b));
+      this.set(
+        'value',
+        x.reduce((a, b) => a + b)
+      );
     };
 
     await render(hbs`
       <p>{{this.value}}</p>
-      <button {{action (pipe (invoke "calcArea" this.model) (action "sumAreas"))}}>
+      <button type="button" {{action (pipe (invoke "calcArea" this.model) (action "sumAreas"))}}>
         Calculate
       </button>
     `);

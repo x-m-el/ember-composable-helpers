@@ -5,22 +5,22 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{map}}', function(hooks) {
+module('Integration | Helper | {{map}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function() {
+  hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) => this.actions[actionName].apply(this, args);
+    this.send = (actionName, ...args) =>
+      this.actions[actionName].apply(this, args);
   });
 
-  test('It maps by value', async function(assert) {
-    this.set('array', emberArray([
-      { name: 'a' },
-      { name: 'b' },
-      { name: 'c' }
-    ]));
+  test('It maps by value', async function (assert) {
+    this.set(
+      'array',
+      emberArray([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
+    );
 
-    this.actions.getName = function({ name }) {
+    this.actions.getName = function ({ name }) {
       return name;
     };
 
@@ -33,16 +33,12 @@ module('Integration | Helper | {{map}}', function(hooks) {
     assert.dom().hasText('abc', 'name property is mapped');
   });
 
-  test('It watches for changes', async function(assert) {
-    let array = emberArray([
-      { name: 'a' },
-      { name: 'b' },
-      { name: 'c' }
-    ]);
+  test('It watches for changes', async function (assert) {
+    let array = emberArray([{ name: 'a' }, { name: 'b' }, { name: 'c' }]);
 
     this.set('array', array);
 
-    this.actions.getName = function({ name }) {
+    this.actions.getName = function ({ name }) {
       return name;
     };
 
@@ -60,7 +56,7 @@ module('Integration | Helper | {{map}}', function(hooks) {
   });
 
   test('it allows null array', async function (assert) {
-    this.actions.getName = function({ name }) {
+    this.actions.getName = function ({ name }) {
       return name;
     };
     this.set('array', null);
@@ -76,7 +72,7 @@ module('Integration | Helper | {{map}}', function(hooks) {
   });
 
   test('it allows undefined array', async function (assert) {
-    this.actions.getName = function({ name }) {
+    this.actions.getName = function ({ name }) {
       return name;
     };
     this.set('array', undefined);

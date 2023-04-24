@@ -5,15 +5,14 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{previous}}', function(hooks) {
+module('Integration | Helper | {{previous}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('It returns the previous value in an array non-primitive values', async function(assert) {
-    this.set('array', emberArray([
-      { name: 'a' },
-      { name: 'b' },
-      { name: 'c' }
-    ]));
+  test('It returns the previous value in an array non-primitive values', async function (assert) {
+    this.set(
+      'array',
+      emberArray([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
+    );
 
     this.set('value', { name: 'b' });
     this.set('useDeepEqual', true);
@@ -27,7 +26,7 @@ module('Integration | Helper | {{previous}}', function(hooks) {
     assert.dom().hasText('a', 'a is shown');
   });
 
-  test('It returns the previous value in an array of primitive values', async function(assert) {
+  test('It returns the previous value in an array of primitive values', async function (assert) {
     this.set('array', emberArray(['lemon', 'kiwi', 'peach']));
 
     this.set('value', 'peach');
@@ -41,7 +40,7 @@ module('Integration | Helper | {{previous}}', function(hooks) {
     assert.dom().hasText('kiwi', 'kiwi is shown');
   });
 
-  test('It recomputes if array changes', async function(assert) {
+  test('It recomputes if array changes', async function (assert) {
     this.set('array', emberArray([1, 2, 3]));
 
     await render(hbs`
@@ -57,17 +56,19 @@ module('Integration | Helper | {{previous}}', function(hooks) {
     assert.dom().hasText('1', '1 is added and shown');
   });
 
-  test('It returns the previous value in an array of related models', async function(assert) {
+  test('It returns the previous value in an array of related models', async function (assert) {
     const store = this.owner.lookup('service:store');
 
     let person = store.createRecord('person', {
-      name: 'Adam'
+      name: 'Adam',
     });
 
-    person.get('pets').pushObjects([
-      store.createRecord('pet', { name: 'Kirby' }),
-      store.createRecord('pet', { name: 'Jake' })
-    ]);
+    person
+      .get('pets')
+      .pushObjects([
+        store.createRecord('pet', { name: 'Kirby' }),
+        store.createRecord('pet', { name: 'Jake' }),
+      ]);
 
     this.set('pets', person.pets.toArray());
     this.set('currentPet', person.get('pets.lastObject'));
@@ -81,7 +82,7 @@ module('Integration | Helper | {{previous}}', function(hooks) {
     assert.dom().hasText('Kirby', 'the previous pet name is shown');
   });
 
-  test('it allows null array', async function(assert) {
+  test('it allows null array', async function (assert) {
     this.set('array', null);
 
     await render(hbs`
@@ -94,7 +95,7 @@ module('Integration | Helper | {{previous}}', function(hooks) {
     assert.dom().hasText('this is all that will render', 'no error is thrown');
   });
 
-  test('it allows undefined array', async function(assert) {
+  test('it allows undefined array', async function (assert) {
     this.set('array', undefined);
 
     await render(hbs`

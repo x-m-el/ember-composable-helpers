@@ -3,14 +3,14 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | keys', function(hooks) {
+module('Integration | Helper | keys', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it returns the keys', async function(assert) {
+  test('it returns the keys', async function (assert) {
     let object = {
       a: 1,
-      b: 2
-    }
+      b: 2,
+    };
 
     this.set('object', object);
 
@@ -19,7 +19,7 @@ module('Integration | Helper | keys', function(hooks) {
     assert.dom().hasText('ab');
   });
 
-  test('it handles undefined input', async function(assert) {
+  test('it handles undefined input', async function (assert) {
     await render(hbs`
       {{#each (keys undefined) as |key|}}{{key}}{{/each}}
     `);
@@ -27,11 +27,11 @@ module('Integration | Helper | keys', function(hooks) {
     assert.dom().hasText('');
   });
 
-  test('it works with let helper', async function(assert) {
+  test('it works with let helper', async function (assert) {
     let object = {
       a: 1,
-      b: 2
-    }
+      b: 2,
+    };
 
     this.set('object', object);
 

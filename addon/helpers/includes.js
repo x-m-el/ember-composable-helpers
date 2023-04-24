@@ -8,7 +8,9 @@ export function includes(needleOrNeedles, haystack) {
     return false;
   }
 
-  let needles = isEmberArray(needleOrNeedles) ? needleOrNeedles : [needleOrNeedles];
+  let needles = isEmberArray(needleOrNeedles)
+    ? needleOrNeedles
+    : [needleOrNeedles];
   let haystackAsEmberArray = emberArray(asArray(haystack));
 
   return asArray(needles).every((needle) => {
@@ -16,6 +18,6 @@ export function includes(needleOrNeedles, haystack) {
   });
 }
 
-export default helper(function([needle, haystack]) {
+export default helper(function ([needle, haystack]) {
   return includes(needle, haystack);
 });

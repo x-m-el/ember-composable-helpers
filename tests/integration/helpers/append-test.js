@@ -5,10 +5,10 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{append}}', function(hooks) {
+module('Integration | Helper | {{append}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('It concats two arrays', async function(assert) {
+  test('It concats two arrays', async function (assert) {
     this.set('evens', emberArray([2, 4, 6]));
     this.set('odds', emberArray([1, 3, 5]));
 
@@ -23,7 +23,7 @@ module('Integration | Helper | {{append}}', function(hooks) {
     assert.dom().hasText(expected, 'appends values');
   });
 
-  test('It concats two arrays and a value', async function(assert) {
+  test('It concats two arrays and a value', async function (assert) {
     this.set('evens', emberArray([4, 6]));
     this.set('odds', emberArray([1, 3, 5]));
     this.set('prime', 2);
@@ -39,7 +39,7 @@ module('Integration | Helper | {{append}}', function(hooks) {
     assert.dom().hasText(expected, 'appends values');
   });
 
-  test('It watches for changes', async function(assert) {
+  test('It watches for changes', async function (assert) {
     this.set('odds', emberArray([1, 3, 5]));
     this.set('prime', 2);
 
@@ -49,11 +49,11 @@ module('Integration | Helper | {{append}}', function(hooks) {
       {{~/each~}}
     `);
 
-    run(() => this.get('odds').pushObject(7));
+    run(() => this.odds.pushObject(7));
     assert.dom().hasText('13572', 'new value is added');
   });
 
-  test('it allows null array', async function(assert) {
+  test('it allows null array', async function (assert) {
     this.set('array', null);
 
     await render(hbs`

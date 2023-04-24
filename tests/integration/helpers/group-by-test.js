@@ -6,16 +6,19 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{group-by}}', function(hooks) {
+module('Integration | Helper | {{group-by}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('It groups by given property', async function(assert) {
-    this.set('array', emberArray([
-      { category: 'a', name: 'a' },
-      { category: 'b', name: 'c' },
-      { category: 'a', name: 'b' },
-      { category: 'b', name: 'd' }
-    ]));
+  test('It groups by given property', async function (assert) {
+    this.set(
+      'array',
+      emberArray([
+        { category: 'a', name: 'a' },
+        { category: 'b', name: 'c' },
+        { category: 'a', name: 'b' },
+        { category: 'b', name: 'd' },
+      ])
+    );
 
     await render(hbs`
       {{~#each-in (group-by 'category' this.array) as |category entries|~}}
@@ -27,12 +30,12 @@ module('Integration | Helper | {{group-by}}', function(hooks) {
     assert.dom().hasText('aabbcd', 'aabbcd is the right order');
   });
 
-  test('It watches for changes', async function(assert) {
+  test('It watches for changes', async function (assert) {
     let array = emberArray([
       { category: 'a', name: 'a' },
       { category: 'b', name: 'c' },
       { category: 'a', name: 'b' },
-      { category: 'b', name: 'd' }
+      { category: 'b', name: 'd' },
     ]);
 
     this.set('array', array);

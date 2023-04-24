@@ -6,15 +6,18 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{find-by}}', function(hooks) {
+module('Integration | Helper | {{find-by}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('It finds a value by a property', async function(assert) {
-    this.set('array', emberArray([
-      { foo: true, name: 'a' },
-      { foo: false, name: 'b' },
-      { foo: true, name: 'c' }
-    ]));
+  test('It finds a value by a property', async function (assert) {
+    this.set(
+      'array',
+      emberArray([
+        { foo: true, name: 'a' },
+        { foo: false, name: 'b' },
+        { foo: true, name: 'c' },
+      ])
+    );
 
     await render(hbs`
       {{~#with (find-by 'name' 'b' this.array) as |item|~}}
@@ -25,11 +28,11 @@ module('Integration | Helper | {{find-by}}', function(hooks) {
     assert.dom().hasText('b', 'b is shown');
   });
 
-  test('It finds a value by a property in arrays without prototype extensions', async function(assert) {
+  test('It finds a value by a property in arrays without prototype extensions', async function (assert) {
     this.set('array', [
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
-      { foo: true, name: 'c' }
+      { foo: true, name: 'c' },
     ]);
 
     await render(hbs`
@@ -41,11 +44,11 @@ module('Integration | Helper | {{find-by}}', function(hooks) {
     assert.dom().hasText('b', 'b is shown');
   });
 
-  test('It recomputes the filter if array changes', async function(assert) {
+  test('It recomputes the filter if array changes', async function (assert) {
     let array = emberArray([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
-      { foo: true, name: 'c' }
+      { foo: true, name: 'c' },
     ]);
 
     this.set('array', array);
@@ -63,11 +66,11 @@ module('Integration | Helper | {{find-by}}', function(hooks) {
     assert.dom().hasText('d', 'd is added and shown');
   });
 
-  test('It recomputes the filter if a value under given path changes', async function(assert) {
+  test('It recomputes the filter if a value under given path changes', async function (assert) {
     let array = emberArray([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
-      { foo: true, name: 'c' }
+      { foo: true, name: 'c' },
     ]);
 
     this.set('array', array);
@@ -85,11 +88,11 @@ module('Integration | Helper | {{find-by}}', function(hooks) {
     assert.dom().hasText('d', 'd is shown');
   });
 
-  test('It recomputes the value changes', async function(assert) {
+  test('It recomputes the value changes', async function (assert) {
     let array = emberArray([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
-      { foo: true, name: 'c' }
+      { foo: true, name: 'c' },
     ]);
 
     this.set('array', array);
@@ -108,7 +111,7 @@ module('Integration | Helper | {{find-by}}', function(hooks) {
     assert.dom().hasText('b', 'b is shown');
   });
 
-  test('it allows null array', async function(assert) {
+  test('it allows null array', async function (assert) {
     this.set('array', null);
 
     await render(hbs`
@@ -121,7 +124,7 @@ module('Integration | Helper | {{find-by}}', function(hooks) {
     assert.dom().hasText('this is all that will render', 'no error is thrown');
   });
 
-  test('it allows undefined array', async function(assert) {
+  test('it allows undefined array', async function (assert) {
     this.set('array', undefined);
 
     await render(hbs`
@@ -134,8 +137,8 @@ module('Integration | Helper | {{find-by}}', function(hooks) {
     assert.dom().hasText('this is all that will render', 'no error is thrown');
   });
 
-  test('it allows freezed array', async function(assert) {
-    this.set('array', Object.freeze([{name:'a'},{name:'b'}]));
+  test('it allows freezed array', async function (assert) {
+    this.set('array', Object.freeze([{ name: 'a' }, { name: 'b' }]));
 
     await render(hbs`
       {{#with (find-by 'name' 'a' this.array) as |value|}}

@@ -19,6 +19,6 @@ export function without(needle, haystack) {
   return emberArray(haystack).without(needle);
 }
 
-export default helper(function([needle, haystack]) {
+export default helper(function ([needle, haystack]) {
   return without(needle, haystack);
 });

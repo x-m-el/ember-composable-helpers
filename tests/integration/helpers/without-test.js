@@ -6,10 +6,10 @@ import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 
-module('Integration | Helper | {{without}}', function(hooks) {
+module('Integration | Helper | {{without}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it returns a new array with given value ommitted', async function(assert) {
+  test('it returns a new array with given value ommitted', async function (assert) {
     this.set('items', ['foo', 'bar', 'baz']);
 
     await render(hbs`
@@ -21,7 +21,7 @@ module('Integration | Helper | {{without}}', function(hooks) {
     assert.dom().hasText('barbaz', 'should render remaining values');
   });
 
-  test('it returns a new array with given values ommitted', async function(assert) {
+  test('it returns a new array with given values ommitted', async function (assert) {
     this.set('items', ['foo', 'bar', 'baz']);
     this.set('selectedItems', ['foo', 'bar']);
 
@@ -34,7 +34,7 @@ module('Integration | Helper | {{without}}', function(hooks) {
     assert.dom().hasText('baz', 'should render remaining values');
   });
 
-  test('it returns the same array when no values are ommitted', async function(assert) {
+  test('it returns the same array when no values are ommitted', async function (assert) {
     this.set('items', ['foo', 'bar', 'baz']);
 
     await render(hbs`
@@ -46,7 +46,7 @@ module('Integration | Helper | {{without}}', function(hooks) {
     assert.dom().hasText('foobarbaz', 'should render remaining values');
   });
 
-  test('it responds to changes', async function(assert) {
+  test('it responds to changes', async function (assert) {
     this.set('items', emberArray(['foo', 'bar', 'baz']));
 
     await render(hbs`
@@ -57,12 +57,15 @@ module('Integration | Helper | {{without}}', function(hooks) {
 
     assert.dom().hasText('foobarbaz', 'should render all values');
 
-    run(() => this.get('items').pushObject('quux'));
+    run(() => this.items.pushObject('quux'));
     assert.dom().hasText('foobarbaz', 'should not render quux');
   });
 
-  test('it accepts array-like arrays', async function(assert) {
-    this.set('items', ArrayProxy.create({ content: emberArray(['foo', 'bar', 'baz']) }));
+  test('it accepts array-like arrays', async function (assert) {
+    this.set(
+      'items',
+      ArrayProxy.create({ content: emberArray(['foo', 'bar', 'baz']) })
+    );
 
     await render(hbs`
       {{~#each (without "foo" this.items) as |remaining|~}}
@@ -73,18 +76,20 @@ module('Integration | Helper | {{without}}', function(hooks) {
     assert.dom().hasText('barbaz', 'should render remaining values');
   });
 
-  test('it accepts an ember data array', async function(assert) {
+  test('it accepts an ember data array', async function (assert) {
     let store = this.owner.lookup('service:store');
 
     run(() => {
       let person = store.createRecord('person', {
-        name: 'Adam'
+        name: 'Adam',
       });
 
-      person.get('pets').pushObjects([
-        store.createRecord('pet', { name: 'Kirby' }),
-        store.createRecord('pet', { name: 'Jake' })
-      ]);
+      person
+        .get('pets')
+        .pushObjects([
+          store.createRecord('pet', { name: 'Kirby' }),
+          store.createRecord('pet', { name: 'Jake' }),
+        ]);
 
       store.createRecord('pet', { name: 'Eva' });
 
@@ -101,7 +106,7 @@ module('Integration | Helper | {{without}}', function(hooks) {
     assert.dom(this.element).hasText('Eva', 'the remaining pet name is shown');
   });
 
-  test('it allows null array', async function(assert) {
+  test('it allows null array', async function (assert) {
     this.set('array', null);
 
     await render(hbs`
@@ -114,7 +119,7 @@ module('Integration | Helper | {{without}}', function(hooks) {
     assert.dom().hasText('this is all that will render', 'no error is thrown');
   });
 
-  test('it allows undefined array', async function(assert) {
+  test('it allows undefined array', async function (assert) {
     this.set('array', undefined);
 
     await render(hbs`

@@ -12,7 +12,7 @@ function nextIndex(length, currentIdx) {
 }
 
 export function toggle([prop, obj, ...values]) {
-  return function() {
+  return function () {
     let currentValue = get(obj, prop);
 
     if (isPresent(values)) {

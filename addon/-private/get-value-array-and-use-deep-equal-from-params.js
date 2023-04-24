@@ -13,6 +13,6 @@ export default function getValueArrayAndUseDeepEqualFromParams(params) {
   return {
     currentValue,
     array,
-    useDeepEqual
-  }
+    useDeepEqual,
+  };
 }
