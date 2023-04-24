@@ -90,41 +90,34 @@ function sortAsc(key, a, b) {
   return 0;
 }
 
-const getDefaultSort = (sortKey) => {
+const getComparator = (key) => {
+  if (typeof key === 'function') {
+    return key;
+  }
+
   let func = sortAsc;
-  if (sortKey.match(':desc')) {
+  if (key.match(':desc')) {
     func = sortDesc;
   }
 
-  return (a, b) => func(sortKey.replace(/:desc|:asc/, ''), a, b);
+  return (a, b) => func(key.replace(/:desc|:asc/, ''), a, b);
 };
 
-class SortBy {
-  constructor(...args) {
-    let [array] = args;
-    this.array = [...array];
-  }
-
-  comparator(key) {
-    return typeof key === 'function' ? key : getDefaultSort(key);
-  }
-
-  perform(keys = []) {
-    let compFuncs = keys.map((key) => this.comparator(key));
-    let compFunc = (a, b) => {
-      for (let i = 0; i < compFuncs.length; i += 1) {
-        let result = compFuncs[i](a, b);
-        if (result === 0) {
-          continue;
-        }
-        return result;
+const performSort = (array, keys = []) => {
+  let compFuncs = keys.map((key) => getComparator(key));
+  let compFunc = (a, b) => {
+    for (let i = 0; i < compFuncs.length; i += 1) {
+      let result = compFuncs[i](a, b);
+      if (result === 0) {
+        continue;
       }
-      return 0;
-    };
+      return result;
+    }
+    return 0;
+  };
 
-    return this.array.sort(compFunc);
-  }
-}
+  return [...array].sort(compFunc);
+};
 
 export function sortBy(params) {
   // slice params to avoid mutating the provided params
@@ -140,9 +133,7 @@ export function sortBy(params) {
     sortKeys = sortKeys[0];
   }
 
-  const sortKlass = new SortBy(array);
-  sortKlass.perform(sortKeys);
-  return sortKlass.array;
+  return performSort(array, sortKeys);
 }
 
 export default helper(sortBy);
