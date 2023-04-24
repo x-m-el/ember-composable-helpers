@@ -105,23 +105,6 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
       .hasText('bcC', 'outputs alphabetical ordering with b before c');
   });
 
-  skip('It sorts by a value based on Alphanumeric', async function (assert) {
-    this.set('array', [
-      { name: 'c1' },
-      { name: 'c11' },
-      { name: 'c2' },
-      { name: 'c100' },
-    ]);
-
-    await render(hbs`
-      {{~#each (sort-by 'name' this.array) as |user|~}}
-        {{~user.name~}}
-      {{~/each~}}
-    `);
-
-    assert.dom().hasText('c1c2c11c100', 'alpha numeric is sorted properly');
-  });
-
   test('It sorts by a value with EmberArray', async function (assert) {
     this.set('array', tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }]));
 
