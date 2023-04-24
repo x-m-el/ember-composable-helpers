@@ -104,25 +104,22 @@ const getComparator = (key) => {
 };
 
 const performSort = (array, keys = []) => {
-  let compFuncs = keys.map((key) => getComparator(key));
-  let compFunc = (a, b) => {
+  const compFuncs = keys.map((key) => getComparator(key));
+
+  return [...array].sort((a, b) => {
     for (let i = 0; i < compFuncs.length; i += 1) {
-      let result = compFuncs[i](a, b);
+      const result = compFuncs[i](a, b);
       if (result === 0) {
         continue;
       }
       return result;
     }
     return 0;
-  };
-
-  return [...array].sort(compFunc);
+  });
 };
 
-export function sortBy(params) {
-  // slice params to avoid mutating the provided params
-  let sortParams = params.slice();
-  let array = asArray(sortParams.pop());
+export function sortBy([...sortParams]) {
+  const array = asArray(sortParams.pop());
   let sortKeys = sortParams;
 
   if (!array || !sortKeys || sortKeys.length === 0) {
