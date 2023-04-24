@@ -1,6 +1,5 @@
 import asArray from 'ember-composable-helpers/utils/as-array';
 import { module, test } from 'qunit';
-import EmberObject from '@ember/object';
 
 module('Unit | Utility | as-array', function () {
   test('it works for [undefined]', function (assert) {
