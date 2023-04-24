@@ -1,9 +1,8 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { set } from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{group-by}}', function (hooks) {
@@ -47,7 +46,9 @@ module('Integration | Helper | {{group-by}}', function (hooks) {
       {{~/each-in~}}
     `);
 
-    run(() => set(array[3], 'category', 'c'));
+    set(array[3], 'category', 'c');
+
+    await settled();
 
     assert.dom().hasText('aabbccd', 'aabbccd is the right order');
   });

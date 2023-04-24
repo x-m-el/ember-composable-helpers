@@ -22,7 +22,10 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    'ember/no-array-prototype-extensions': 'error',
+    'ember/no-proxies': 'error',
+  },
   overrides: [
     // node files
     {

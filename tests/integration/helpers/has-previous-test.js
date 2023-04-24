@@ -1,8 +1,7 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{has-previous}}', function (hooks) {
@@ -27,7 +26,9 @@ module('Integration | Helper | {{has-previous}}', function (hooks) {
 
     assert.dom().hasText('false', 'true is shown');
 
-    run(() => this.set('array', [3, 2, 1]));
+    this.set('array', [3, 2, 1]);
+
+    await settled();
 
     assert.dom().hasText('true', 'false is shown');
   });

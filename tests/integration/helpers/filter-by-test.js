@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { set } from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -94,7 +93,9 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => set(array[1], 'foo', true));
+    set(array[1], 'foo', true);
+
+    await settled();
 
     assert.dom().hasText('abc', 'b is shown');
   });
@@ -114,7 +115,9 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => set(array[0], 'foo', false));
+    set(array[0], 'foo', false);
+
+    await settled();
 
     assert.dom().hasText('ab', 'a and b are shown');
   });
@@ -136,7 +139,9 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
 
     assert.dom().hasText('ac', 'ac is shown');
 
-    run(() => set(array[1], 'foo', true));
+    set(array[1], 'foo', true);
+
+    await settled();
 
     assert.dom().hasText('abc', 'b is added');
   });

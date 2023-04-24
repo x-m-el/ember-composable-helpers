@@ -1,8 +1,7 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{compact}}', function (hooks) {
@@ -56,7 +55,9 @@ module('Integration | Helper | {{compact}}', function (hooks) {
 
     assert.dom().hasText('123', 'null is removed');
 
-    run(() => array.splice(2, 1, 5));
+    array.splice(2, 1, 5);
+
+    await settled();
 
     assert.dom().hasText('1253', 'null is removed');
   });

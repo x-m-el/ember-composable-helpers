@@ -1,8 +1,7 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{slice}}', function (hooks) {
@@ -38,7 +37,8 @@ module('Integration | Helper | {{slice}}', function (hooks) {
 
     assert.dom().hasText('4,6', 'sliced values');
 
-    run(() => array.splice(2, 1, 5));
+    array.splice(2, 1, 5);
+    await settled();
 
     assert.dom().hasText('4,5', 'sliced values');
   });

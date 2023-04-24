@@ -1,8 +1,7 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{includes}}', function (hooks) {
@@ -52,11 +51,15 @@ module('Integration | Helper | {{includes}}', function (hooks) {
 
     assert.dom().hasText('true', 'should render true');
 
-    run(() => this.wishlist.splice(0, 1));
+    this.wishlist.splice(0, 1);
+
+    await settled();
 
     assert.dom().hasText('false', 'should render false');
 
-    run(() => this.set('selectedGame', games[1]));
+    this.set('selectedGame', games[1]);
+
+    await settled();
 
     assert.dom().hasText('true', 'should render true');
   });

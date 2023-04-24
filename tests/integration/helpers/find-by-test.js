@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { set } from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
@@ -84,7 +83,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
 
     assert.dom().hasText('', 'd is not found');
 
-    run(() => set(array[1], 'name', 'd'));
+    set(array[1], 'name', 'd');
+
+    await settled();
 
     assert.dom().hasText('d', 'd is shown');
   });
@@ -107,7 +108,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
 
     assert.dom().hasText('', 'd is not found');
 
-    run(() => set(this, 'value', 'b'));
+    set(this, 'value', 'b');
+
+    await settled();
 
     assert.dom().hasText('b', 'b is shown');
   });

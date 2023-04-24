@@ -1,8 +1,7 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{drop}}', function (hooks) {
@@ -30,7 +29,9 @@ module('Integration | Helper | {{drop}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => array.unshift(0));
+    array.unshift(0);
+
+    await settled();
 
     assert.dom().hasText('2345', '0 and 1 are dropped');
   });

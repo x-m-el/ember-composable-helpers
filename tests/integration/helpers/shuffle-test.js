@@ -1,8 +1,7 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{shuffle}}', function (hooks) {
@@ -103,7 +102,9 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
 
     assert.dom().hasText('2341', 'array is shuffled');
 
-    run(() => array.splice(2, 1, 5));
+    array.splice(2, 1, 5);
+
+    await settled();
 
     assert.dom().hasText('2541', 'array is shuffled');
   });
