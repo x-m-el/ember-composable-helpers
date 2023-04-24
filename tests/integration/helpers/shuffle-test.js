@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{shuffle}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -13,7 +13,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
   });
 
   test('It shuffles array', async function (assert) {
-    this.set('array', emberArray([1, 2]));
+    this.set('array', tracked([1, 2]));
     await render(hbs`
       {{~#each (shuffle this.array) as |value|~}}
         {{value}}
@@ -24,7 +24,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
   });
 
   test('It shuffles array using passed in randomizer', async function (assert) {
-    this.set('array', emberArray([1, 2, 3, 4]));
+    this.set('array', tracked([1, 2, 3, 4]));
     this.actions.fake = () => 0;
     await render(hbs`
       {{~#each (shuffle this.actions.fake this.array) as |value|~}}
@@ -48,7 +48,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
   });
 
   test('It does not mutate the original array', async function (assert) {
-    this.set('array', emberArray([1, 2, 3, 4]));
+    this.set('array', tracked([1, 2, 3, 4]));
     this.actions.fake = () => 0;
     await render(hbs`
       {{~#each (shuffle this.actions.fake this.array) as |value|~}}
@@ -76,7 +76,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
   });
 
   test('It recomputes the shuffle if the array changes', async function (assert) {
-    this.set('array', emberArray([1, 2, 3, 4]));
+    this.set('array', tracked([1, 2, 3, 4]));
     this.actions.fake = () => 0;
     await render(hbs`
       {{~#each (shuffle this.actions.fake this.array) as |value|~}}
@@ -86,13 +86,13 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
 
     assert.dom().hasText('2341', 'array is shuffled');
 
-    this.set('array', emberArray(['a', 2, 3, 4]));
+    this.set('array', tracked(['a', 2, 3, 4]));
 
     assert.dom().hasText('234a', 'array is shuffled');
   });
 
   test('It recomputes the shuffle if an item in the array changes', async function (assert) {
-    let array = emberArray([1, 2, 3, 4]);
+    let array = tracked([1, 2, 3, 4]);
     this.set('array', array);
     this.actions.fake = () => 0;
     await render(hbs`
@@ -103,7 +103,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
 
     assert.dom().hasText('2341', 'array is shuffled');
 
-    run(() => array.replace(2, 1, [5]));
+    run(() => array.splice(2, 1, 5));
 
     assert.dom().hasText('2541', 'array is shuffled');
   });

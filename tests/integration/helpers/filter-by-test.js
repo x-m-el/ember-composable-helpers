@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { set } from '@ember/object';
 import { module, test } from 'qunit';
@@ -17,7 +16,7 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
   test('It filters by value', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: true, name: 'a' },
         { foo: false, name: 'b' },
         { foo: true, name: 'c' },
@@ -36,7 +35,7 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
   test('It filters by truthiness', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 'x', name: 'a' },
         { foo: undefined, name: 'b' },
         { foo: 1, name: 'c' },
@@ -81,7 +80,7 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
   });
 
   test('It recomputes the filter if a value under given path changes', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
       { foo: true, name: 'c' },
@@ -95,13 +94,13 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => set(array.objectAt(1), 'foo', true));
+    run(() => set(array[1], 'foo', true));
 
     assert.dom().hasText('abc', 'b is shown');
   });
 
   test('It recomputes the filter with a falsy value', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
       { foo: true, name: 'c' },
@@ -115,13 +114,13 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => set(array.objectAt(0), 'foo', false));
+    run(() => set(array[0], 'foo', false));
 
     assert.dom().hasText('ab', 'a and b are shown');
   });
 
   test('It recomputes the filter with no value', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
       { foo: true, name: 'c' },
@@ -137,7 +136,7 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
 
     assert.dom().hasText('ac', 'ac is shown');
 
-    run(() => set(array.objectAt(1), 'foo', true));
+    run(() => set(array[1], 'foo', true));
 
     assert.dom().hasText('abc', 'b is added');
   });
@@ -145,7 +144,7 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
   test('It can be passed an action', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 1, name: 'a' },
         { foo: 2, name: 'b' },
         { foo: 3, name: 'c' },
@@ -172,7 +171,7 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
 
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 1, name: 'a' },
         { foo: 2, name: 'b' },
         { foo: 3, name: 'c' },
@@ -191,7 +190,7 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
   test('It filters without dependant keys', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: { bar: true }, name: 'a' },
         { foo: { bar: false }, name: 'b' },
         { foo: { bar: true }, name: 'c' },

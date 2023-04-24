@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -11,7 +10,7 @@ module('Integration | Helper | {{map-by}}', function (hooks) {
   test('It maps by value', async function (assert) {
     this.set(
       'array',
-      emberArray([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
+      tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
     );
 
     await render(hbs`
@@ -57,7 +56,7 @@ module('Integration | Helper | {{map-by}}', function (hooks) {
   });
 
   test('It watches for changes to byPath', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { name: 'a', x: 1 },
       { name: 'b', x: 2 },
       { name: 'c', x: 3 },

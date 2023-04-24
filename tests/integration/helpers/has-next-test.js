@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{has-next}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -20,7 +20,7 @@ module('Integration | Helper | {{has-next}}', function (hooks) {
   });
 
   test('It recomputes if array changes', async function (assert) {
-    this.set('array', emberArray([1, 2, 3]));
+    this.set('array', tracked([1, 2, 3]));
     this.set('value', 1);
 
     await render(hbs`{{has-next this.value this.array}}`);

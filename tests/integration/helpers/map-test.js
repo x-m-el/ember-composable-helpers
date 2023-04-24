@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -15,7 +14,7 @@ module('Integration | Helper | {{map}}', function (hooks) {
   test('It maps by value', async function (assert) {
     this.set(
       'array',
-      emberArray([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
+      tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
     );
 
     this.actions.getName = function ({ name }) {

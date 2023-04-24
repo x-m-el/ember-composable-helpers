@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -15,7 +14,7 @@ module('Integration | Helper | {{filter}}', function (hooks) {
   test('It filters by truthiness', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 'x', name: 'a' },
         { foo: undefined, name: 'b' },
         { foo: 1, name: 'c' },
@@ -65,7 +64,7 @@ module('Integration | Helper | {{filter}}', function (hooks) {
   test('It can be passed an action', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 1, name: 'a' },
         { foo: 2, name: 'b' },
         { foo: 3, name: 'c' },

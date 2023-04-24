@@ -1,15 +1,15 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{compact}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('Removes empty values in standard arrays', async function (assert) {
-    this.set('array', emberArray([1, 2, null, 3, false]));
+    this.set('array', tracked([1, 2, null, 3, false]));
     await render(hbs`
       {{~#each (compact this.array) as |value|~}}
         {{value}}
@@ -31,7 +31,7 @@ module('Integration | Helper | {{compact}}', function (hooks) {
   });
 
   test('It recomputes the filter if the array changes', async function (assert) {
-    this.set('array', emberArray([1, 2, null, 3]));
+    this.set('array', tracked([1, 2, null, 3]));
     await render(hbs`
       {{~#each (compact this.array) as |value|~}}
         {{value}}
@@ -40,13 +40,13 @@ module('Integration | Helper | {{compact}}', function (hooks) {
 
     assert.dom().hasText('123', 'null is removed');
 
-    this.set('array', emberArray([1, null, null, 3]));
+    this.set('array', tracked([1, null, null, 3]));
 
     assert.dom().hasText('13', 'null is removed');
   });
 
   test('It recomputes the filter if an item in the array changes', async function (assert) {
-    let array = emberArray([1, 2, null, 3]);
+    let array = tracked([1, 2, null, 3]);
     this.set('array', array);
     await render(hbs`
       {{~#each (compact this.array) as |value|~}}
@@ -56,7 +56,7 @@ module('Integration | Helper | {{compact}}', function (hooks) {
 
     assert.dom().hasText('123', 'null is removed');
 
-    run(() => array.replace(2, 1, [5]));
+    run(() => array.splice(2, 1, 5));
 
     assert.dom().hasText('1253', 'null is removed');
   });

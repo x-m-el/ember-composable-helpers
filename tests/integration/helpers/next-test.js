@@ -1,18 +1,15 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{next}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('It returns the next value in an array of non-primitive values', async function (assert) {
-    this.set(
-      'array',
-      emberArray([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
-    );
+    this.set('array', tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }]));
 
     this.set('value', { name: 'b' });
     this.set('useDeepEqual', true);
@@ -27,7 +24,7 @@ module('Integration | Helper | {{next}}', function (hooks) {
   });
 
   test('It returns the next value in an array of primitive values', async function (assert) {
-    this.set('array', emberArray(['lemon', 'kiwi', 'peach']));
+    this.set('array', tracked(['lemon', 'kiwi', 'peach']));
 
     this.set('value', 'lemon');
 
@@ -41,7 +38,7 @@ module('Integration | Helper | {{next}}', function (hooks) {
   });
 
   test('It recomputes if array changes', async function (assert) {
-    this.set('array', emberArray([1, 2, 3]));
+    this.set('array', tracked([1, 2, 3]));
 
     await render(hbs`
       {{~#let (next 1 this.array) as |item|~}}

@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{object-at}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -27,7 +27,7 @@ module('Integration | Helper | {{object-at}}', function (hooks) {
   });
 
   test('It returns an updated value when the object at the given index changes', async function (assert) {
-    this.set('array', emberArray(['apples', 'oranges', 'bananas']));
+    this.set('array', tracked(['apples', 'oranges', 'bananas']));
     this.set('index', 1);
 
     await render(hbs`{{object-at this.index this.array}}`);

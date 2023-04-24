@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { set } from '@ember/object';
 import { module, test } from 'qunit';
@@ -17,7 +16,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
   test('It reject by value', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: false, name: 'a' },
         { foo: true, name: 'b' },
         { foo: false, name: 'c' },
@@ -36,7 +35,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
   test('It rejects by truthiness', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 'x', name: 'a' },
         { foo: undefined, name: 'b' },
         { foo: 1, name: 'c' },
@@ -81,7 +80,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
   });
 
   test('It recomputes the filter if a value under given path changes', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: false, name: 'a' },
       { foo: true, name: 'b' },
       { foo: false, name: 'c' },
@@ -97,7 +96,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
 
     assert.dom().hasText('ac', 'ac is shown');
 
-    run(() => set(array.objectAt(1), 'foo', false));
+    run(() => set(array[1], 'foo', false));
 
     assert.dom().hasText('abc', 'b is added');
   });
@@ -105,7 +104,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
   test('It can be passed an action', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 1, name: 'a' },
         { foo: 2, name: 'b' },
         { foo: 3, name: 'c' },
@@ -132,7 +131,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
 
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: 1, name: 'a' },
         { foo: 2, name: 'b' },
         { foo: 3, name: 'c' },

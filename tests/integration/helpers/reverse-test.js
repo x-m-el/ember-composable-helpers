@@ -1,15 +1,15 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{reverse}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it reverses an array', async function (assert) {
-    this.set('array', emberArray(['foo', 'bar', 'baz']));
+    this.set('array', tracked(['foo', 'bar', 'baz']));
     await render(hbs`
       {{~#each (reverse this.array) as |item|~}}
         {{~item~}}
@@ -59,7 +59,7 @@ module('Integration | Helper | {{reverse}}', function (hooks) {
   });
 
   test('It recomputes when an item in the array changes', async function (assert) {
-    let array = emberArray(['foo', 'bar', 'baz']);
+    let array = tracked(['foo', 'bar', 'baz']);
     this.set('array', array);
     await render(hbs`
       {{~#each (reverse this.array) as |item|~}}

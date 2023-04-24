@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -126,7 +125,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It sorts by a value with EmberArray', async function (assert) {
     this.set(
       'array',
-      emberArray([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
+      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
     );
 
     await render(hbs`
@@ -141,7 +140,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It sorts by a value desc', async function (assert) {
     this.set(
       'array',
-      emberArray([{ name: 'c' }, { name: 'a' }, { name: 'b' }, { name: 'a' }])
+      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }, { name: 'a' }])
     );
 
     await render(hbs`
@@ -156,7 +155,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It does not sort the array when the key is an empty string', async function (assert) {
     this.set(
       'array',
-      emberArray([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
+      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
     );
 
     await render(hbs`
@@ -188,7 +187,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It accepts an array of sort properties (one prop)', async function (assert) {
     this.set(
       'array',
-      emberArray([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
+      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
     );
 
     this.set('sortBy', ['name']);
@@ -205,7 +204,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It accepts an array of sort properties (more than one prop)', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { firstName: 'Adam', lastName: 'Coda' },
         { firstName: 'Billy', lastName: 'Jones' },
         { firstName: 'William', lastName: 'Abrams' },
@@ -233,7 +232,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It accepts multiple sort properties as helper params', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { firstName: 'Adam', lastName: 'Coda' },
         { firstName: 'Billy', lastName: 'Jones' },
         { firstName: 'William', lastName: 'Abrams' },
@@ -259,7 +258,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It accepts a function sort property', async function (assert) {
     this.set(
       'array',
-      emberArray([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
+      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
     );
 
     this.actions.sortBy = (a, b) => {

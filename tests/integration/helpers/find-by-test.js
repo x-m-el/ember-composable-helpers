@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { run } from '@ember/runloop';
 import { set } from '@ember/object';
 import { module, test } from 'qunit';
@@ -13,7 +12,7 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
   test('It finds a value by a property', async function (assert) {
     this.set(
       'array',
-      emberArray([
+      tracked([
         { foo: true, name: 'a' },
         { foo: false, name: 'b' },
         { foo: true, name: 'c' },
@@ -69,7 +68,7 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
   });
 
   test('It recomputes the filter if a value under given path changes', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
       { foo: true, name: 'c' },
@@ -85,13 +84,13 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
 
     assert.dom().hasText('', 'd is not found');
 
-    run(() => set(array.objectAt(1), 'name', 'd'));
+    run(() => set(array[1], 'name', 'd'));
 
     assert.dom().hasText('d', 'd is shown');
   });
 
   test('It recomputes the value changes', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
       { foo: true, name: 'c' },

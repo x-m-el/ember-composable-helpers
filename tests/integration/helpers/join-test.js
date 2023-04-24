@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -9,7 +8,7 @@ module('Integration | Helper | {{join}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('It joins the words with given separator', async function (assert) {
-    this.set('array', emberArray(['foo', 'bar', 'baz']));
+    this.set('array', tracked(['foo', 'bar', 'baz']));
 
     await render(hbs`{{join ', ' this.array}}`);
 
@@ -19,7 +18,7 @@ module('Integration | Helper | {{join}}', function (hooks) {
   });
 
   test('The default separator is a comma', async function (assert) {
-    this.set('array', emberArray(['foo', 'bar', 'baz']));
+    this.set('array', tracked(['foo', 'bar', 'baz']));
 
     await render(hbs`{{join this.array}}`);
 

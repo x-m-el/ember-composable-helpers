@@ -1,5 +1,4 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
@@ -9,8 +8,8 @@ module('Integration | Helper | {{append}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('It concats two arrays', async function (assert) {
-    this.set('evens', emberArray([2, 4, 6]));
-    this.set('odds', emberArray([1, 3, 5]));
+    this.set('evens', tracked([2, 4, 6]));
+    this.set('odds', tracked([1, 3, 5]));
 
     await render(hbs`
       {{~#each (append this.evens this.odds) as |n|~}}
@@ -24,8 +23,8 @@ module('Integration | Helper | {{append}}', function (hooks) {
   });
 
   test('It concats two arrays and a value', async function (assert) {
-    this.set('evens', emberArray([4, 6]));
-    this.set('odds', emberArray([1, 3, 5]));
+    this.set('evens', tracked([4, 6]));
+    this.set('odds', tracked([1, 3, 5]));
     this.set('prime', 2);
 
     await render(hbs`
