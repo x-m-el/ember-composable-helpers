@@ -86,17 +86,4 @@ module('Unit | Utility | as-array', function () {
       assert.ok(e.toString().includes('WeakSets is not supported as arrays'));
     }
   });
-
-  test('it not works for EmberObject as array', function (assert) {
-    assert.expect(1);
-    class ItemClass extends EmberObject {}
-
-    try {
-      asArray(new ItemClass());
-    } catch (e) {
-      assert.ok(
-        e.toString().includes('EmberObjects is not supported as arrays')
-      );
-    }
-  });
 });

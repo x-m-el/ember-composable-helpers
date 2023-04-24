@@ -1,5 +1,3 @@
-import EmberObject from '@ember/object';
-
 function isIterable(value) {
   return Symbol.iterator in Object(value);
 }
@@ -53,11 +51,6 @@ function _asArray(maybeArray) {
     if (isPromiseLike(maybeArray)) {
       throw new Error(
         'Promise-like objects is not supported as arrays [ember-composable-helpers]'
-      );
-    }
-    if (maybeArray instanceof EmberObject) {
-      throw new Error(
-        'EmberObjects is not supported as arrays [ember-composable-helpers]'
       );
     }
     return Array.from(Object.values(maybeArray));

@@ -4,7 +4,7 @@ export default function getIndex(array, currentValue, useDeepEqual) {
   let needle = currentValue;
 
   if (useDeepEqual) {
-    needle = array.find((object) => {
+    return array.findIndex((object) => {
       return isEqual(object, currentValue, useDeepEqual);
     });
   }
