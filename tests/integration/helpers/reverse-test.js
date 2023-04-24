@@ -69,7 +69,7 @@ module('Integration | Helper | {{reverse}}', function (hooks) {
 
     assert.dom().hasText('bazbarfoo', 'array is reversed');
 
-    run(() => array.removeAt(1));
+    run(() => array.splice(1, 1));
 
     assert.dom().hasText('bazfoo', 'array is reversed');
   });

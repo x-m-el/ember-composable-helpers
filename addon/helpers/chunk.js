@@ -1,5 +1,4 @@
 import { helper } from '@ember/component/helper';
-import { isArray as isEmberArray } from '@ember/array';
 const { max, ceil } = Math;
 import asArray from '../utils/as-array';
 
@@ -8,7 +7,7 @@ export function chunk(num, array) {
   let size = max(integer, 0);
 
   let length = 0;
-  if (isEmberArray(array)) {
+  if (Array.isArray(array)) {
     length = array.length;
   }
 
