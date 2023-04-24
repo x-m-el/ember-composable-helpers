@@ -67,7 +67,7 @@ module('Unit | Utility | is equal', function () {
     ({ label, firstValue, secondValue, useDeepEqual, expected }) => {
       test(`it works with ${label}`, function (assert) {
         let result = isEqual(firstValue, secondValue, useDeepEqual);
-        assert.equal(result, expected, `should be ${expected}`);
+        assert.strictEqual(result, expected, `should be ${expected}`);
       });
     }
   );

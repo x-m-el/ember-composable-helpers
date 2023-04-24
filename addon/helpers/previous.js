@@ -8,7 +8,7 @@ export function previous(currentValue, array, useDeepEqual = false) {
   let currentIndex = getIndex(array, currentValue, useDeepEqual);
 
   if (isEmpty(currentIndex)) {
-    return;
+    return null;
   }
 
   return currentIndex === 0

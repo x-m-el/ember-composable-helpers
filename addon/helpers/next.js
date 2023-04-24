@@ -11,7 +11,7 @@ export function next(currentValue, maybeArray, useDeepEqual = false) {
   let lastIndex = array.length - 1;
 
   if (isEmpty(currentIndex)) {
-    return;
+    return null;
   }
 
   return currentIndex === lastIndex
