@@ -6,12 +6,13 @@ export function includes(needleOrNeedles, haystack) {
     return false;
   }
 
-  let needles = Array.isArray(needleOrNeedles)
-    ? needleOrNeedles
-    : [needleOrNeedles];
-  let haystackAsEmberArray = asArray(haystack);
+  const haystackAsEmberArray = asArray(haystack);
 
-  return asArray(needles).every((needle) => {
+  if (!Array.isArray(needleOrNeedles)) {
+    return haystackAsEmberArray.includes(needleOrNeedles);
+  }
+
+  return asArray(needleOrNeedles).every((needle) => {
     return haystackAsEmberArray.includes(needle);
   });
 }
