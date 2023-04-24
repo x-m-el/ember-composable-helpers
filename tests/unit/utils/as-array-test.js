@@ -48,6 +48,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it not works for number', function (assert) {
+    assert.expect(1);
     try {
       asArray(1);
     } catch (e) {
@@ -56,6 +57,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it not works for non-iterable items', function (assert) {
+    assert.expect(1);
     try {
       asArray(Symbol('a'));
     } catch (e) {
@@ -64,6 +66,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it not works for non-object content in array-proxy-like items', function (assert) {
+    assert.expect(1);
     try {
       const item = new Promise((r) => r());
       item.content = null;
@@ -105,6 +108,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it works for ember object with toArray property [EmberObject]', function (assert) {
+    assert.expect(1);
     const item = EmberObject.extend({
       toArray() {
         return [1, 2, 3];
@@ -123,6 +127,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it not works for proxy-like object as array', function (assert) {
+    assert.expect(1);
     try {
       const item = new Promise((r) => r());
       asArray(item);
@@ -134,6 +139,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it not works for WeakMap as array', function (assert) {
+    assert.expect(1);
     try {
       const item = new WeakMap();
       asArray(item);
@@ -143,6 +149,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it not works for WeakSet as array', function (assert) {
+    assert.expect(1);
     try {
       const item = new WeakSet();
       asArray(item);
@@ -152,6 +159,7 @@ module('Unit | Utility | as-array', function () {
   });
 
   test('it not works for EmberObject as array', function (assert) {
+    assert.expect(1);
     try {
       const item = EmberObject.extend({}).create();
       asArray(item);
