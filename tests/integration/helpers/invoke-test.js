@@ -52,7 +52,7 @@ module('Integration | Helper | {{invoke}}', function (hooks) {
 
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{action (pipe (invoke "calcArea" this.model) (action "sumAreas"))}}>
+      <button type="button" {{on 'click' (pipe (invoke "calcArea" this.model) this.actions.sumAreas)}}>
         Calculate
       </button>
     `);

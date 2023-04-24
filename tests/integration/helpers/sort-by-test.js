@@ -275,7 +275,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
     };
 
     await render(hbs`
-      {{~#each (sort-by (action "sortBy") this.array) as |user|~}}
+      {{~#each (sort-by this.actions.sortBy this.array) as |user|~}}
         {{~user.name~}}
       {{~/each~}}
     `);

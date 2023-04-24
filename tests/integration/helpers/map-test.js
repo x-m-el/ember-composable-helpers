@@ -25,7 +25,7 @@ module('Integration | Helper | {{map}}', function (hooks) {
     };
 
     await render(hbs`
-      {{~#each (map (action "getName") this.array) as |name|~}}
+      {{~#each (map this.actions.getName this.array) as |name|~}}
         {{~name~}}
       {{~/each~}}
     `);
@@ -43,7 +43,7 @@ module('Integration | Helper | {{map}}', function (hooks) {
     };
 
     await render(hbs`
-      {{~#each (map (action "getName") this.array) as |name|~}}
+      {{~#each (map this.actions.getName this.array) as |name|~}}
         {{~name~}}
       {{~/each~}}
     `);
@@ -64,7 +64,7 @@ module('Integration | Helper | {{map}}', function (hooks) {
 
     await render(hbs`
       this is all that will render
-      {{#each (map (action "getName") this.array) as |value|}}
+      {{#each (map this.actions.getName this.array) as |value|}}
         {{value}}
       {{/each}}
     `);
@@ -80,7 +80,7 @@ module('Integration | Helper | {{map}}', function (hooks) {
 
     await render(hbs`
       this is all that will render
-      {{#each (map (action "getName") this.array) as |value|}}
+      {{#each (map this.actions.getName this.array) as |value|}}
         {{value}}
       {{/each}}
     `);

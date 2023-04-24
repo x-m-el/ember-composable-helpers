@@ -20,7 +20,7 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
     this.actions.sum = (previousValue, currentValue) =>
       previousValue + currentValue;
 
-    await render(hbs`{{reduce (action "sum") 0 this.array}}`);
+    await render(hbs`{{reduce this.actions.sum 0 this.array}}`);
 
     assert.dom().hasText('6');
   });
@@ -33,7 +33,7 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
     this.actions.sum = (previousValue, currentValue) =>
       previousValue + currentValue;
 
-    await render(hbs`{{reduce (action "sum") 0 this.array}}`);
+    await render(hbs`{{reduce this.actions.sum 0 this.array}}`);
 
     assert.dom().hasText('6');
 
@@ -50,7 +50,7 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
     this.actions.sum = (previousValue, currentValue) =>
       previousValue + currentValue;
 
-    await render(hbs`{{reduce (action "sum") this.initialValue this.array}}`);
+    await render(hbs`{{reduce this.actions.sum this.initialValue this.array}}`);
 
     assert.dom().hasText('6');
 

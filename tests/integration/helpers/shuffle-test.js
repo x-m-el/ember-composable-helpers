@@ -29,7 +29,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
     this.set('array', emberArray([1, 2, 3, 4]));
     this.actions.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle (action "fake") this.array) as |value|~}}
+      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -41,7 +41,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
     this.set('array', [1, 2, 3, 4]);
     this.actions.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle (action "fake") this.array) as |value|~}}
+      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -53,7 +53,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
     this.set('array', emberArray([1, 2, 3, 4]));
     this.actions.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle (action "fake") this.array) as |value|~}}
+      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -81,7 +81,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
     this.set('array', emberArray([1, 2, 3, 4]));
     this.actions.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle (action "fake") this.array) as |value|~}}
+      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -98,7 +98,7 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
     this.set('array', array);
     this.actions.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle (action "fake") this.array) as |value|~}}
+      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);

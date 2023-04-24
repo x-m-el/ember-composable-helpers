@@ -117,7 +117,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
     this.actions.isEven = (value) => value % 2 === 0;
 
     await render(hbs`
-      {{~#each (reject-by 'foo' (action 'isEven') this.array) as |item|~}}
+      {{~#each (reject-by 'foo' this.actions.isEven this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
