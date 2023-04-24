@@ -108,14 +108,13 @@ module('Integration | Helper | {{map-by}}', function (hooks) {
     let store = this.owner.lookup('service:store');
     let person = store.createRecord('person');
 
-    person
-      .get('pets')
-      .pushObjects([
-        store.createRecord('pet', { name: 'a' }),
-        store.createRecord('pet', { name: 'b' }),
-        store.createRecord('pet', { name: 'c' }),
-      ]);
     let pets = await person.pets;
+
+    pets.push(
+      store.createRecord('pet', { name: 'a' }),
+      store.createRecord('pet', { name: 'b' }),
+      store.createRecord('pet', { name: 'c' })
+    );
 
     this.set('pets', pets);
 

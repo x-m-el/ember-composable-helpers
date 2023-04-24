@@ -299,14 +299,13 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
     let store = this.owner.lookup('service:store');
     let person = store.createRecord('person');
 
-    person
-      .get('pets')
-      .pushObjects([
-        store.createRecord('pet', { name: 'c' }),
-        store.createRecord('pet', { name: 'b' }),
-        store.createRecord('pet', { name: 'a' }),
-      ]);
     let pets = await person.pets;
+
+    pets.push(
+      store.createRecord('pet', { name: 'c' }),
+      store.createRecord('pet', { name: 'b' }),
+      store.createRecord('pet', { name: 'a' })
+    );
 
     this.set('pets', pets);
 

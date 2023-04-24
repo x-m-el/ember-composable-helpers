@@ -114,14 +114,14 @@ module('Integration | Helper | {{filter}}', function (hooks) {
     let store = this.owner.lookup('service:store');
     let person = store.createRecord('person');
 
-    person
-      .get('pets')
-      .pushObjects([
-        store.createRecord('pet', { name: 'aa' }),
-        store.createRecord('pet', { name: 'ab' }),
-        store.createRecord('pet', { name: 'bc' }),
-      ]);
     let pets = await person.pets;
+
+    pets.push(
+      store.createRecord('pet', { name: 'aa' }),
+      store.createRecord('pet', { name: 'ab' }),
+      store.createRecord('pet', { name: 'bc' })
+    );
+
     this.set('pets', pets);
 
     this.actions.startsWithA = function ({ name }) {
