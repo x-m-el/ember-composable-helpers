@@ -8,8 +8,6 @@ module('Integration | Helper | {{compute}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test("It calls an action and returns it's value", async function (assert) {

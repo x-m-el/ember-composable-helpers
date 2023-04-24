@@ -9,8 +9,6 @@ module('Integration | Helper | {{invoke}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('it invokes methods and handles promises', async function (assert) {

@@ -8,8 +8,6 @@ module('Integration | Helper | {{optional}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('If the action does not exist, it passes a no-op function', async function (assert) {

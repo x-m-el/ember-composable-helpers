@@ -10,8 +10,6 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('It sorts by a value ascending', async function (assert) {

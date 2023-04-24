@@ -9,8 +9,6 @@ module('Integration | Helper | {{queue}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('it queues actions', async function (assert) {

@@ -10,8 +10,6 @@ module('Integration | Helper | {{filter}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('It filters by truthiness', async function (assert) {

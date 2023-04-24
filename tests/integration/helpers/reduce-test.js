@@ -10,8 +10,6 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('It accepts a callback', async function (assert) {

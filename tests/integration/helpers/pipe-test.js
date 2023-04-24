@@ -9,8 +9,6 @@ module('Integration | Helper | {{pipe}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('it pipes actions', async function (assert) {

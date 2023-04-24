@@ -12,8 +12,6 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
 
   hooks.beforeEach(function () {
     this.actions = {};
-    this.send = (actionName, ...args) =>
-      this.actions[actionName].apply(this, args);
   });
 
   test('It filters by value', async function (assert) {
