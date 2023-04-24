@@ -20,9 +20,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
     );
 
     await render(hbs`
-      {{~#with (find-by 'name' 'b' this.array) as |item|~}}
+      {{~#let (find-by 'name' 'b' this.array) as |item|~}}
         {{~item.name~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('b', 'b is shown');
@@ -36,9 +36,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
     ]);
 
     await render(hbs`
-      {{~#with (find-by 'name' 'b' this.array) as |item|~}}
+      {{~#let (find-by 'name' 'b' this.array) as |item|~}}
         {{~item.name~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('b', 'b is shown');
@@ -54,9 +54,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
     this.set('array', array);
 
     await render(hbs`
-      {{~#with (find-by 'name' 'd' this.array) as |item|~}}
+      {{~#let (find-by 'name' 'd' this.array) as |item|~}}
         {{~item.name~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('', 'd is not found');
@@ -76,9 +76,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
     this.set('array', array);
 
     await render(hbs`
-      {{~#with (find-by 'name' 'd' this.array) as |item|~}}
+      {{~#let (find-by 'name' 'd' this.array) as |item|~}}
         {{~item.name~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('', 'd is not found');
@@ -99,9 +99,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
     this.set('value', 'd');
 
     await render(hbs`
-      {{~#with (find-by 'name' this.value this.array) as |item|~}}
+      {{~#let (find-by 'name' this.value this.array) as |item|~}}
         {{~item.name~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('', 'd is not found');
@@ -116,9 +116,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
 
     await render(hbs`
       this is all that will render
-      {{#with (find-by 'name' 'd' this.array) as |value|}}
+      {{#let (find-by 'name' 'd' this.array) as |value|}}
         {{value}}
-      {{/with}}
+      {{/let}}
     `);
 
     assert.dom().hasText('this is all that will render', 'no error is thrown');
@@ -129,9 +129,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
 
     await render(hbs`
       this is all that will render
-      {{#with (find-by 'name' 'd' this.array) as |value|}}
+      {{#let (find-by 'name' 'd' this.array) as |value|}}
         {{value}}
-      {{/with}}
+      {{/let}}
     `);
 
     assert.dom().hasText('this is all that will render', 'no error is thrown');
@@ -141,9 +141,9 @@ module('Integration | Helper | {{find-by}}', function (hooks) {
     this.set('array', Object.freeze([{ name: 'a' }, { name: 'b' }]));
 
     await render(hbs`
-      {{#with (find-by 'name' 'a' this.array) as |value|}}
+      {{#let (find-by 'name' 'a' this.array) as |value|}}
         {{value.name}}
-      {{/with}}
+      {{/let}}
     `);
 
     assert.dom().hasText('a', 'no error is thrown');
