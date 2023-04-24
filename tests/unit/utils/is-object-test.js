@@ -1,5 +1,4 @@
 import EmberObject from '@ember/object';
-import ObjectProxy from '@ember/object/proxy';
 import isObject from 'ember-composable-helpers/utils/is-object';
 import { module, test } from 'qunit';
 
@@ -13,13 +12,6 @@ module('Unit | Utility | is object', function () {
     {
       label: 'EmberObjects',
       value: EmberObject.create({ foo: 'bar' }),
-      expected: true,
-    },
-    {
-      label: 'ObjectProxies',
-      value: ObjectProxy.create({
-        content: EmberObject.create({ foo: 'bar' }),
-      }),
       expected: true,
     },
   ];

@@ -8,10 +8,6 @@ function isPromiseLike(thing) {
   return typeof thing.then === 'function';
 }
 
-function isPromiseProxyLike(thing) {
-  return isPromiseLike(thing) && Object.hasOwnProperty.call(thing, 'content');
-}
-
 function toExtendable(array) {
   if (!Object.isExtensible(array)) {
     return Array.from(array);
@@ -54,15 +50,6 @@ function _asArray(maybeArray) {
     );
   }
   if (typeof maybeArray === 'object') {
-    if (isPromiseProxyLike(maybeArray)) {
-      const content = maybeArray.content;
-      if (typeof content !== 'object' || content === null) {
-        throw new Error(
-          'Unknown content type in array-like object [ember-composable-helpers]'
-        );
-      }
-      return _asArray(content);
-    }
     if (isPromiseLike(maybeArray)) {
       throw new Error(
         'Promise-like objects is not supported as arrays [ember-composable-helpers]'

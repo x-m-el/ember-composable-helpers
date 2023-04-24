@@ -55,46 +55,6 @@ module('Unit | Utility | as-array', function () {
     }
   });
 
-  test('it not works for non-object content in array-proxy-like items', function (assert) {
-    assert.expect(1);
-    try {
-      const item = new Promise((r) => r());
-      item.content = null;
-      asArray(item);
-    } catch (e) {
-      assert.ok(
-        e.toString().includes('Unknown content type in array-like object')
-      );
-    }
-  });
-
-  test('it works for object-like content in array-proxy-like items [arrays]', function (assert) {
-    const item = new Promise((r) => r());
-    item.content = [1, 2, 3];
-    assert.strictEqual(asArray(item).length, 3);
-  });
-
-  test('it works for object-like content in array-proxy-like items [objects]', function (assert) {
-    const item = new Promise((r) => r());
-    item.content = { a: 1, b: 2, c: 3 };
-    assert.strictEqual(asArray(item).length, 3);
-  });
-
-  test('it works for object-like content in array-proxy-like items [sets]', function (assert) {
-    const item = new Promise((r) => r());
-    item.content = new Set([1, 2, 3]);
-    assert.strictEqual(asArray(item).length, 3);
-  });
-
-  test('it works for object-like content in array-proxy-like items [maps]', function (assert) {
-    const item = new Promise((r) => r());
-    item.content = new Map();
-    item.content.set(1, 1);
-    item.content.set(2, 1);
-    item.content.set(3, 1);
-    assert.strictEqual(asArray(item).length, 3);
-  });
-
   test('it not works for proxy-like object as array', function (assert) {
     assert.expect(1);
     try {
