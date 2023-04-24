@@ -1,7 +1,8 @@
-/* eslint-env node, mocha */
+/* eslint-env mocha */
 'use strict';
 
 var difference = require('../../lib/difference');
+// eslint-disable-next-line n/no-unpublished-require
 var expect = require('chai').expect;
 
 describe('difference', function () {

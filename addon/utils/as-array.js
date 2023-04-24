@@ -1,5 +1,5 @@
 import { isArray } from '@ember/array';
-import EmberObject, { get } from '@ember/object';
+import EmberObject from '@ember/object';
 
 function isIterable(value) {
   return Symbol.iterator in Object(value);

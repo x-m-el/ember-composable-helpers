@@ -1,7 +1,8 @@
-/* eslint-env node, mocha */
+/* eslint-env mocha */
 'use strict';
 
 var addonIndex = require('../index');
+// eslint-disable-next-line n/no-unpublished-require
 var expect = require('chai').expect;
 
 describe('index', function () {
