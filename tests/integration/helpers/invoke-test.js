@@ -22,7 +22,7 @@ module('Integration | Helper | {{invoke}}', function (hooks) {
 
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{action (pipe (invoke "serverSideComputation" 2 this) (action "setValue"))}}>
+      <button type="button" {{on 'click' (pipe (invoke "serverSideComputation" 2 this) this.actions.setValue)}}>
         Calculate
       </button>
     `);
