@@ -8,10 +8,7 @@ module('Integration | Helper | {{map-by}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('It maps by value', async function (assert) {
-    this.set(
-      'array',
-      tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
-    );
+    this.set('array', tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }]));
 
     await render(hbs`
       {{~#each (map-by 'name' this.array) as |name|~}}

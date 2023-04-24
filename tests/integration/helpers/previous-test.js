@@ -9,10 +9,7 @@ module('Integration | Helper | {{previous}}', function (hooks) {
   setupRenderingTest(hooks);
 
   test('It returns the previous value in an array non-primitive values', async function (assert) {
-    this.set(
-      'array',
-      tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
-    );
+    this.set('array', tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }]));
 
     this.set('value', { name: 'b' });
     this.set('useDeepEqual', true);

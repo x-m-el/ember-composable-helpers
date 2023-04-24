@@ -12,10 +12,7 @@ module('Integration | Helper | {{map}}', function (hooks) {
   });
 
   test('It maps by value', async function (assert) {
-    this.set(
-      'array',
-      tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }])
-    );
+    this.set('array', tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }]));
 
     this.actions.getName = function ({ name }) {
       return name;

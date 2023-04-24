@@ -123,10 +123,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   });
 
   test('It sorts by a value with EmberArray', async function (assert) {
-    this.set(
-      'array',
-      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
-    );
+    this.set('array', tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }]));
 
     await render(hbs`
       {{~#each (sort-by 'name' this.array) as |user|~}}
@@ -153,10 +150,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   });
 
   test('It does not sort the array when the key is an empty string', async function (assert) {
-    this.set(
-      'array',
-      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
-    );
+    this.set('array', tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }]));
 
     await render(hbs`
       {{~#each (sort-by "" this.array) as |user|~}}
@@ -185,10 +179,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   });
 
   test('It accepts an array of sort properties (one prop)', async function (assert) {
-    this.set(
-      'array',
-      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
-    );
+    this.set('array', tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }]));
 
     this.set('sortBy', ['name']);
 
@@ -256,10 +247,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   });
 
   test('It accepts a function sort property', async function (assert) {
-    this.set(
-      'array',
-      tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }])
-    );
+    this.set('array', tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }]));
 
     this.actions.sortBy = (a, b) => {
       if (a.name > b.name) {
