@@ -1,1 +1,1 @@
-export { default } from 'ember-composable-helpers/helpers/reverse';
+export { default } from '@eflexsystems/ember-composable-helpers/helpers/reverse';

@@ -1,1 +1,4 @@
-export { default, pick } from 'ember-composable-helpers/helpers/pick';
+export {
+  default,
+  pick,
+} from '@eflexsystems/ember-composable-helpers/helpers/pick';

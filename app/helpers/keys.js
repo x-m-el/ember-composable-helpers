@@ -1,1 +1,4 @@
-export { default, keys } from 'ember-composable-helpers/helpers/keys';
+export {
+  default,
+  keys,
+} from '@eflexsystems/ember-composable-helpers/helpers/keys';

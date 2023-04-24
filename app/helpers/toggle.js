@@ -1,1 +1,4 @@
-export { default, toggle } from 'ember-composable-helpers/helpers/toggle';
+export {
+  default,
+  toggle,
+} from '@eflexsystems/ember-composable-helpers/helpers/toggle';

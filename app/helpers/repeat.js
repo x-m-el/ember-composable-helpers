@@ -1,1 +1,4 @@
-export { default, repeat } from 'ember-composable-helpers/helpers/repeat';
+export {
+  default,
+  repeat,
+} from '@eflexsystems/ember-composable-helpers/helpers/repeat';

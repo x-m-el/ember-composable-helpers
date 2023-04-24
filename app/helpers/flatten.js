@@ -1,1 +1,4 @@
-export { default, flatten } from 'ember-composable-helpers/helpers/flatten';
+export {
+  default,
+  flatten,
+} from '@eflexsystems/ember-composable-helpers/helpers/flatten';

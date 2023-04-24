@@ -1,1 +1,1 @@
-export { default } from 'ember-composable-helpers/helpers/sort-by';
+export { default } from '@eflexsystems/ember-composable-helpers/helpers/sort-by';

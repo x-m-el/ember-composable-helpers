@@ -1,1 +1,4 @@
-export { default, optional } from 'ember-composable-helpers/helpers/optional';
+export {
+  default,
+  optional,
+} from '@eflexsystems/ember-composable-helpers/helpers/optional';

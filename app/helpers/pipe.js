@@ -1,1 +1,4 @@
-export { default, pipe } from 'ember-composable-helpers/helpers/pipe';
+export {
+  default,
+  pipe,
+} from '@eflexsystems/ember-composable-helpers/helpers/pipe';

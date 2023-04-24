@@ -1,1 +1,4 @@
-export { default, range } from 'ember-composable-helpers/helpers/range';
+export {
+  default,
+  range,
+} from '@eflexsystems/ember-composable-helpers/helpers/range';

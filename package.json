@@ -1,5 +1,5 @@
 {
-  "name": "ember-composable-helpers",
+  "name": "@eflexsystems/ember-composable-helpers",
   "version": "5.0.0",
   "description": "Composable helpers for Ember",
   "directories": {
@@ -22,8 +22,8 @@
     "test:node": "mocha test --recursive --reporter spec",
     "test:ember-compatibility": "ember try:each"
   },
-  "bugs": "https://github.com/DockYard/ember-composable-helpers/issues",
-  "homepage": "https://github.com/DockYard/ember-composable-helpers",
+  "bugs": "https://github.com/eflexsystems/DockYard/ember-composable-helpers/issues",
+  "homepage": "https://github.com/eflexsystems/ember-composable-helpers",
 
   "contributors": [
     "Lauren Tan <arr@sugarpirate.com>",
@@ -92,7 +92,7 @@
     "drop",
     "compute"
   ],
-  "repository": "https://github.com/DockYard/ember-composable-helpers",
+  "repository": "https://github.com/eflexsystems/ember-composable-helpers",
   "license": "MIT",
   "author": "Dockyard <oss@dockyard.com>",
   "dependencies": {

@@ -1,1 +1,4 @@
-export { default, shuffle } from 'ember-composable-helpers/helpers/shuffle';
+export {
+  default,
+  shuffle,
+} from '@eflexsystems/ember-composable-helpers/helpers/shuffle';

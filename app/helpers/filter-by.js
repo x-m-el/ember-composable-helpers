@@ -1,1 +1,1 @@
-export { default } from 'ember-composable-helpers/helpers/filter-by';
+export { default } from '@eflexsystems/ember-composable-helpers/helpers/filter-by';

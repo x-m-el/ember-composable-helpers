@@ -1,1 +1,4 @@
-export { default, queue } from 'ember-composable-helpers/helpers/queue';
+export {
+  default,
+  queue,
+} from '@eflexsystems/ember-composable-helpers/helpers/queue';

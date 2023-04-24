@@ -1,4 +1,4 @@
-import asArray from 'ember-composable-helpers/utils/as-array';
+import asArray from '@eflexsystems/ember-composable-helpers/utils/as-array';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | as-array', function () {

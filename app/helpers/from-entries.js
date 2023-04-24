@@ -1,4 +1,4 @@
 export {
   default,
   fromEntries,
-} from 'ember-composable-helpers/helpers/from-entries';
+} from '@eflexsystems/ember-composable-helpers/helpers/from-entries';

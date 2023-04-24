@@ -1,4 +1,4 @@
 export {
   default,
   hasPrevious,
-} from 'ember-composable-helpers/helpers/has-previous';
+} from '@eflexsystems/ember-composable-helpers/helpers/has-previous';
