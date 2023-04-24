@@ -90,6 +90,15 @@ function sortAsc(key, a, b) {
   return 0;
 }
 
+const getDefaultSort = (sortKey) => {
+  let func = sortAsc;
+  if (sortKey.match(':desc')) {
+    func = sortDesc;
+  }
+
+  return (a, b) => func(sortKey.replace(/:desc|:asc/, ''), a, b);
+};
+
 class SortBy {
   constructor(...args) {
     let [array] = args;
@@ -97,16 +106,7 @@ class SortBy {
   }
 
   comparator(key) {
-    return typeof key === 'function' ? key : this.defaultSort(key);
-  }
-
-  defaultSort(sortKey) {
-    let func = sortAsc;
-    if (sortKey.match(':desc')) {
-      func = sortDesc;
-    }
-
-    return (a, b) => func(sortKey.replace(/:desc|:asc/, ''), a, b);
+    return typeof key === 'function' ? key : getDefaultSort(key);
   }
 
   perform(keys = []) {
