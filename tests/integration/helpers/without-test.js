@@ -61,44 +61,28 @@ module('Integration | Helper | {{without}}', function (hooks) {
     assert.dom().hasText('foobarbaz', 'should not render quux');
   });
 
-  test('it accepts array-like arrays', async function (assert) {
-    this.set(
-      'items',
-      ArrayProxy.create({ content: emberArray(['foo', 'bar', 'baz']) })
-    );
-
-    await render(hbs`
-      {{~#each (without "foo" this.items) as |remaining|~}}
-        {{remaining}}
-      {{~/each~}}
-    `);
-
-    assert.dom().hasText('barbaz', 'should render remaining values');
-  });
-
   test('it accepts an ember data array', async function (assert) {
     let store = this.owner.lookup('service:store');
 
-    run(() => {
-      let person = store.createRecord('person', {
-        name: 'Adam',
-      });
-
-      person
-        .get('pets')
-        .pushObjects([
-          store.createRecord('pet', { name: 'Kirby' }),
-          store.createRecord('pet', { name: 'Jake' }),
-        ]);
-
-      store.createRecord('pet', { name: 'Eva' });
-
-      this.set('person', person);
-      this.set('allPets', store.peekAll('pet'));
+    let person = store.createRecord('person', {
+      name: 'Adam',
     });
 
+    let pets = await person.pets;
+
+    pets.push(
+      store.createRecord('pet', { name: 'Kirby' }),
+      store.createRecord('pet', { name: 'Jake' })
+    );
+
+    store.createRecord('pet', { name: 'Eva' });
+
+    this.set('person', person);
+    this.set('pets', pets);
+    this.set('allPets', store.peekAll('pet'));
+
     await render(hbs`
-      {{~#each (without this.person.pets this.allPets) as |pet|~}}
+      {{~#each (without this.pets this.allPets) as |pet|~}}
         {{~pet.name~}}
       {{~/each~}}
     `);
