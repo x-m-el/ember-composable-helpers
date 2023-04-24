@@ -1,9 +1,8 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{chunk}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -116,7 +115,7 @@ module('Integration | Helper | {{chunk}}', function (hooks) {
   });
 
   test('It recomputes if an item in the array changes', async function (assert) {
-    this.set('array', emberArray([1, 2, 3, 4]));
+    this.set('array', tracked([1, 2, 3, 4]));
     this.set('size', 2);
 
     await render(
@@ -125,7 +124,9 @@ module('Integration | Helper | {{chunk}}', function (hooks) {
 
     assert.dom().hasText('12 34', 'chunked arrays are displayed');
 
-    run(() => this.array.pushObjects(['some', 'new', 'items']));
+    this.array.push('some', 'new', 'items');
+
+    await settled();
 
     assert
       .dom()
