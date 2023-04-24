@@ -4,7 +4,8 @@ import { run } from '@ember/runloop';
 import { set } from '@ember/object';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{reject-by}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -61,7 +62,7 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
   });
 
   test('It recomputes the filter if array changes', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: false, name: 'a' },
       { foo: true, name: 'b' },
       { foo: false, name: 'c' },
@@ -75,7 +76,8 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => array.pushObject({ foo: false, name: 'd' }));
+    array.push({ foo: false, name: 'd' });
+    await settled();
 
     assert.dom().hasText('acd', 'd is added');
   });

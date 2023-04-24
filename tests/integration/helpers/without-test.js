@@ -1,10 +1,8 @@
 import { hbs } from 'ember-cli-htmlbars';
-import ArrayProxy from '@ember/array/proxy';
-import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{without}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -47,7 +45,7 @@ module('Integration | Helper | {{without}}', function (hooks) {
   });
 
   test('it responds to changes', async function (assert) {
-    this.set('items', emberArray(['foo', 'bar', 'baz']));
+    this.set('items', tracked(['foo', 'bar', 'baz']));
 
     await render(hbs`
       {{~#each (without "quux" this.items) as |remaining|~}}
@@ -57,7 +55,8 @@ module('Integration | Helper | {{without}}', function (hooks) {
 
     assert.dom().hasText('foobarbaz', 'should render all values');
 
-    run(() => this.items.pushObject('quux'));
+    this.items.push('quux');
+    await settled();
     assert.dom().hasText('foobarbaz', 'should not render quux');
   });
 

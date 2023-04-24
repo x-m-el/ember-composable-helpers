@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
 import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test, skip } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{sort-by}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -171,7 +171,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   });
 
   test('It watches for changes', async function (assert) {
-    let array = emberArray([{ name: 'b' }, { name: 'a' }, { name: 'd' }]);
+    let array = tracked([{ name: 'b' }, { name: 'a' }, { name: 'd' }]);
 
     this.set('array', array);
 
@@ -181,7 +181,8 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => array.pushObject({ name: 'c' }));
+    array.push({ name: 'c' });
+    await settled();
 
     assert.dom().hasText('abcd', 'list is still sorted after addition');
   });

@@ -1,9 +1,8 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{intersect}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -23,9 +22,9 @@ module('Integration | Helper | {{intersect}}', function (hooks) {
   });
 
   test('It watches for changes', async function (assert) {
-    this.set('array1', emberArray(['foo', 'bar']));
-    this.set('array2', emberArray(['foo', 'baz']));
-    this.set('array3', emberArray(['qux', 'foo']));
+    this.set('array1', tracked(['foo', 'bar']));
+    this.set('array2', tracked(['foo', 'baz']));
+    this.set('array3', tracked(['qux', 'foo']));
 
     await render(hbs`
       {{~#each (intersect this.array1 this.array2 this.array3) as |word|~}}
@@ -33,8 +32,10 @@ module('Integration | Helper | {{intersect}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => this.array2.pushObject('bar'));
-    run(() => this.array3.pushObject('bar'));
+    this.array2.push('bar');
+    this.array3.push('bar');
+
+    await settled();
 
     assert.dom().hasText('foobar', 'bar is added');
   });

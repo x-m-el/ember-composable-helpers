@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
 import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{append}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -40,7 +40,7 @@ module('Integration | Helper | {{append}}', function (hooks) {
   });
 
   test('It watches for changes', async function (assert) {
-    this.set('odds', emberArray([1, 3, 5]));
+    this.set('odds', tracked([1, 3, 5]));
     this.set('prime', 2);
 
     await render(hbs`
@@ -49,7 +49,8 @@ module('Integration | Helper | {{append}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => this.odds.pushObject(7));
+    this.odds.push(7);
+    await settled();
     assert.dom().hasText('13572', 'new value is added');
   });
 

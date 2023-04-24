@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
 import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{reduce}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -26,7 +26,7 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
   });
 
   test('It re-evaluates when array content changes', async function (assert) {
-    let array = emberArray([1, 2, 3]);
+    let array = tracked([1, 2, 3]);
 
     this.set('array', array);
 
@@ -37,7 +37,8 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
 
     assert.dom().hasText('6');
 
-    run(() => array.pushObject(4));
+    array.push(4);
+    await settled();
 
     assert.dom().hasText('10');
   });

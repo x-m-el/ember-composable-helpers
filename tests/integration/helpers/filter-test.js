@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
 import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{filter}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -40,7 +40,7 @@ module('Integration | Helper | {{filter}}', function (hooks) {
   });
 
   test('It recomputes the filter if array changes', async function (assert) {
-    let array = emberArray([
+    let array = tracked([
       { foo: true, name: 'a' },
       { foo: false, name: 'b' },
       { foo: true, name: 'c' },
@@ -58,7 +58,8 @@ module('Integration | Helper | {{filter}}', function (hooks) {
       {{~/each~}}
     `);
 
-    run(() => array.pushObject({ foo: true, name: 'd' }));
+    array.push({ foo: true, name: 'd' });
+    await settled();
 
     assert.dom().hasText('acd', 'd is added');
   });

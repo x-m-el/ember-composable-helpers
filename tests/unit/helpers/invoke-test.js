@@ -1,7 +1,7 @@
-import { A } from '@ember/array';
 import { resolve } from 'rsvp';
 import { invoke } from 'dummy/helpers/invoke';
 import { module, test } from 'qunit';
+import { tracked } from 'tracked-built-ins';
 
 module('Unit | Helper | invoke', function () {
   test('it calls method inside objects', function (assert) {
@@ -33,22 +33,21 @@ module('Unit | Helper | invoke', function () {
     });
   });
 
-  test('it wraps array of promises in another promise', function (assert) {
+  test('it wraps array of promises in another promise', async function (assert) {
     assert.expect(1);
-    let done = assert.async();
-    let array = A();
+    let array = tracked([]);
 
-    array.pushObject({
+    array.push({
       func() {
         return resolve(1);
       },
     });
-    array.pushObject({
+    array.push({
       func() {
         return resolve(2);
       },
     });
-    array.pushObject({
+    array.push({
       func() {
         return resolve(3);
       },
@@ -57,9 +56,7 @@ module('Unit | Helper | invoke', function () {
     let action = invoke(['func', array]);
     let result = action();
 
-    result.then((resolved) => {
-      assert.deepEqual([1, 2, 3], resolved, 'it is promise aware');
-      done();
-    });
+    const resolved = await result;
+    assert.deepEqual([1, 2, 3], resolved, 'it is promise aware');
   });
 });

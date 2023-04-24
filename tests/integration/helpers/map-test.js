@@ -1,9 +1,9 @@
 import { hbs } from 'ember-cli-htmlbars';
 import { A as emberArray } from '@ember/array';
-import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{map}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -34,7 +34,7 @@ module('Integration | Helper | {{map}}', function (hooks) {
   });
 
   test('It watches for changes', async function (assert) {
-    let array = emberArray([{ name: 'a' }, { name: 'b' }, { name: 'c' }]);
+    let array = tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }]);
 
     this.set('array', array);
 
@@ -50,7 +50,8 @@ module('Integration | Helper | {{map}}', function (hooks) {
 
     assert.dom().hasText('abc', 'precondition');
 
-    run(() => array.pushObject({ name: 'd' }));
+    array.push({ name: 'd' });
+    await settled();
 
     assert.dom().hasText('abcd', 'd is added');
   });
