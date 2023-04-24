@@ -45,6 +45,7 @@ module('Unit | Helper | pipe', function (hooks) {
   });
 
   test('it is promise aware', function (assert) {
+    assert.expect(1);
     let done = assert.async();
     let piped = pipe([add, square, resolve, Math.sqrt]);
     let result = piped(2, 4);
@@ -56,6 +57,7 @@ module('Unit | Helper | pipe', function (hooks) {
   });
 
   test('it aborts the chain if a promise in the pipeline rejects', function (assert) {
+    assert.expect(1);
     let done = assert.async();
     let spy = sandbox.spy(square);
     let piped = pipe([add, reject, spy]);

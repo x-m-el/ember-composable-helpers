@@ -44,6 +44,7 @@ module('Unit | Helper | queue', function (hooks) {
   });
 
   test('it is promise aware', function (assert) {
+    assert.expect(1);
     let done = assert.async();
     let queued = queue([step0, step1, step2, step3]);
     let result = queued(2, 4);
@@ -55,6 +56,7 @@ module('Unit | Helper | queue', function (hooks) {
   });
 
   test('it aborts the chain if a promise in the queue rejects', function (assert) {
+    assert.expect(1);
     let done = assert.async();
     let queued = queue([step0, fail, step1]);
 
