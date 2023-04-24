@@ -2,7 +2,6 @@ export { default as AppendHelper } from './helpers/append';
 export { default as ArrayHelper } from './helpers/array';
 export { default as ChunkHelper } from './helpers/chunk';
 export { default as CompactHelper } from './helpers/compact';
-export { default as ComputeHelper } from './helpers/compute';
 export { default as ContainsHelper } from './helpers/contains';
 export { default as DecHelper } from './helpers/dec';
 export { default as DropHelper } from './helpers/drop';
