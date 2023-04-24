@@ -7,22 +7,6 @@ const collator = new Intl.Collator(undefined, {
   sensitivity: 'base',
 });
 
-function normalizeToBoolean(val) {
-  if (typeof val === 'boolean') {
-    return val;
-  }
-
-  if (typeof val === 'number') {
-    if (val > 0) {
-      return false;
-    } else if (val < 0) {
-      return true;
-    }
-  }
-
-  return val;
-}
-
 function safeValueForKey(ctx, key) {
   if (ctx === null || ctx === undefined) {
     return ctx;
@@ -124,20 +108,8 @@ class SortBy {
 
     return (a, b) => func(sortKey.replace(/:desc|:asc/, ''), a, b);
   }
-}
 
-/**
- * best O(n); worst O(n^2)
- * If we feel like swapping with something more performant like QuickSort or MergeSort
- * then it should be easy
- *
- * @class BubbleSort
- * @extends SortBy
- */
-class BubbleSort extends SortBy {
   perform(keys = []) {
-    let swapped = false;
-
     let compFuncs = keys.map((key) => this.comparator(key));
     let compFunc = (a, b) => {
       for (let i = 0; i < compFuncs.length; i += 1) {
@@ -149,26 +121,8 @@ class BubbleSort extends SortBy {
       }
       return 0;
     };
-    for (let i = 1; i < this.array.length; i += 1) {
-      for (let j = 0; j < this.array.length - i; j += 1) {
-        let shouldSwap = normalizeToBoolean(
-          compFunc(this.array[j + 1], this.array[j])
-        );
-        if (shouldSwap) {
-          [this.array[j], this.array[j + 1]] = [
-            this.array[j + 1],
-            this.array[j],
-          ];
 
-          swapped = true;
-        }
-      }
-
-      // no need to continue sort if not swapped in any inner iteration
-      if (!swapped) {
-        return this.array;
-      }
-    }
+    return this.array.sort(compFunc);
   }
 }
 
@@ -186,7 +140,7 @@ export function sortBy(params) {
     sortKeys = sortKeys[0];
   }
 
-  const sortKlass = new BubbleSort(array);
+  const sortKlass = new SortBy(array);
   sortKlass.perform(sortKeys);
   return sortKlass.array;
 }
