@@ -18,9 +18,9 @@ module('Integration | Helper | {{previous}}', function (hooks) {
     this.set('useDeepEqual', true);
 
     await render(hbs`
-      {{~#with (previous this.value this.useDeepEqual this.array) as |item|~}}
+      {{~#let (previous this.value this.useDeepEqual this.array) as |item|~}}
         {{~item.name~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('a', 'a is shown');
@@ -32,9 +32,9 @@ module('Integration | Helper | {{previous}}', function (hooks) {
     this.set('value', 'peach');
 
     await render(hbs`
-      {{~#with (previous this.value this.array) as |item|~}}
+      {{~#let (previous this.value this.array) as |item|~}}
         {{~item~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('kiwi', 'kiwi is shown');
@@ -44,9 +44,9 @@ module('Integration | Helper | {{previous}}', function (hooks) {
     this.set('array', emberArray([1, 2, 3]));
 
     await render(hbs`
-      {{~#with (previous 3 this.array) as |item|~}}
+      {{~#let (previous 3 this.array) as |item|~}}
         {{~item~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('2', '2 is shown');
@@ -74,9 +74,9 @@ module('Integration | Helper | {{previous}}', function (hooks) {
     this.set('currentPet', person.get('pets.lastObject'));
 
     await render(hbs`
-      {{~#with (previous this.currentPet this.pets) as |pet|~}}
+      {{~#let (previous this.currentPet this.pets) as |pet|~}}
         {{~pet.name~}}
-      {{~/with~}}
+      {{~/let~}}
     `);
 
     assert.dom().hasText('Kirby', 'the previous pet name is shown');
@@ -87,9 +87,9 @@ module('Integration | Helper | {{previous}}', function (hooks) {
 
     await render(hbs`
       this is all that will render
-      {{#with (previous 1 this.array) as |value|}}
+      {{#let (previous 1 this.array) as |value|}}
         {{value}}
-      {{/with}}
+      {{/let}}
     `);
 
     assert.dom().hasText('this is all that will render', 'no error is thrown');
@@ -100,9 +100,9 @@ module('Integration | Helper | {{previous}}', function (hooks) {
 
     await render(hbs`
       this is all that will render
-      {{#with (previous 1 this.array) as |value|}}
+      {{#let (previous 1 this.array) as |value|}}
         {{value}}
-      {{/with}}
+      {{/let}}
     `);
 
     assert.dom().hasText('this is all that will render', 'no error is thrown');
