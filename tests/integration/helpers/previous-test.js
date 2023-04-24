@@ -63,15 +63,15 @@ module('Integration | Helper | {{previous}}', function (hooks) {
       name: 'Adam',
     });
 
-    person
-      .get('pets')
-      .pushObjects([
-        store.createRecord('pet', { name: 'Kirby' }),
-        store.createRecord('pet', { name: 'Jake' }),
-      ]);
+    let pets = await person.pets;
 
-    this.set('pets', person.pets.toArray());
-    this.set('currentPet', person.get('pets.lastObject'));
+    pets.push(
+      store.createRecord('pet', { name: 'Kirby' }),
+      store.createRecord('pet', { name: 'Jake' })
+    );
+
+    this.set('pets', pets);
+    this.set('currentPet', pets.at(-1));
 
     await render(hbs`
       {{~#let (previous this.currentPet this.pets) as |pet|~}}

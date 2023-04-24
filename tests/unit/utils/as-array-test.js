@@ -32,16 +32,6 @@ module('Unit | Utility | as-array', function () {
     assert.strictEqual(result.length, 3);
   });
 
-  test('it works for [Object.toArray()]', function (assert) {
-    let result = asArray({
-      a: 1,
-      toArray() {
-        return [1, 2, 3];
-      },
-    });
-    assert.strictEqual(result.length, 3);
-  });
-
   test('it works for [Strings]', function (assert) {
     let result = asArray('abc');
     assert.strictEqual(result.length, 3);
@@ -90,31 +80,10 @@ module('Unit | Utility | as-array', function () {
     assert.strictEqual(asArray(item).length, 3);
   });
 
-  test('it works for object-like content in array-proxy-like items [objects toArray]', function (assert) {
-    const item = new Promise((r) => r());
-    item.content = {
-      a: 1,
-      toArray() {
-        return [1, 2, 3];
-      },
-    };
-    assert.strictEqual(asArray(item).length, 3);
-  });
-
   test('it works for object-like content in array-proxy-like items [sets]', function (assert) {
     const item = new Promise((r) => r());
     item.content = new Set([1, 2, 3]);
     assert.strictEqual(asArray(item).length, 3);
-  });
-
-  test('it works for ember object with toArray property [EmberObject]', function (assert) {
-    assert.expect(1);
-    class ItemClass extends EmberObject {
-      toArray() {
-        return [1, 2, 3];
-      }
-    }
-    assert.strictEqual(asArray(new ItemClass()).length, 3);
   });
 
   test('it works for object-like content in array-proxy-like items [maps]', function (assert) {

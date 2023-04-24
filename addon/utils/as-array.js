@@ -5,11 +5,6 @@ function isIterable(value) {
   return Symbol.iterator in Object(value);
 }
 
-// from https://github.com/flexyford/ember-power-select/blob/78a5430c1ac89daf315d0801fd5201e444e82434/addon/components/power-select.ts
-function isArrayable(thing) {
-  return typeof thing.toArray === 'function';
-}
-
 function isPromiseLike(thing) {
   return typeof thing.then === 'function';
 }
@@ -69,19 +64,12 @@ function _asArray(maybeArray) {
           'Unknown content type in array-like object [ember-composable-helpers]'
         );
       }
-      if (isArrayable(content)) {
-        return content.toArray();
-      } else {
-        return _asArray(content);
-      }
+      return _asArray(content);
     }
     if (isPromiseLike(maybeArray)) {
       throw new Error(
         'Promise-like objects is not supported as arrays [ember-composable-helpers]'
       );
-    }
-    if (isArrayable(maybeArray)) {
-      return maybeArray.toArray();
     }
     if (maybeArray instanceof EmberObject) {
       throw new Error(
