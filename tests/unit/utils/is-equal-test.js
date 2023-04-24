@@ -41,6 +41,7 @@ module('Unit | Utility | is equal', function () {
     },
     {
       label: 'Ember.isEqual applied to firstValue',
+      // eslint-disable-next-line ember/no-classic-classes
       firstValue: EmberObject.extend({
         isEqual(value) {
           return this.value === value;
@@ -53,6 +54,7 @@ module('Unit | Utility | is equal', function () {
     {
       label: 'Ember.isEqual applied to secondValue',
       firstValue: 10,
+      // eslint-disable-next-line ember/no-classic-classes
       secondValue: EmberObject.extend({
         isEqual(value) {
           return this.value === value;

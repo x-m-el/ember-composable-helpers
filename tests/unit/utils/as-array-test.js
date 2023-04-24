@@ -109,12 +109,12 @@ module('Unit | Utility | as-array', function () {
 
   test('it works for ember object with toArray property [EmberObject]', function (assert) {
     assert.expect(1);
-    const item = EmberObject.extend({
+    class ItemClass extends EmberObject {
       toArray() {
         return [1, 2, 3];
-      },
-    }).create();
-    assert.strictEqual(asArray(item).length, 3);
+      }
+    }
+    assert.strictEqual(asArray(new ItemClass()).length, 3);
   });
 
   test('it works for object-like content in array-proxy-like items [maps]', function (assert) {
@@ -160,9 +160,10 @@ module('Unit | Utility | as-array', function () {
 
   test('it not works for EmberObject as array', function (assert) {
     assert.expect(1);
+    class ItemClass extends EmberObject {}
+
     try {
-      const item = EmberObject.extend({}).create();
-      asArray(item);
+      asArray(new ItemClass());
     } catch (e) {
       assert.ok(
         e.toString().includes('EmberObjects is not supported as arrays')

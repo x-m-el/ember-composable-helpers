@@ -31,7 +31,7 @@ module('Integration | Helper | {{filter}}', function (hooks) {
     };
 
     await render(hbs`
-      {{~#each (filter (action "truthyFoo") this.array) as |item|~}}
+      {{~#each (filter this.actions.truthyFoo this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
@@ -53,7 +53,7 @@ module('Integration | Helper | {{filter}}', function (hooks) {
     };
 
     await render(hbs`
-      {{~#each (filter (action "getFoo") this.array) as |item|~}}
+      {{~#each (filter this.actions.getFoo this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
@@ -76,7 +76,7 @@ module('Integration | Helper | {{filter}}', function (hooks) {
     this.actions.isOdd = ({ foo }) => foo % 2 !== 0;
 
     await render(hbs`
-      {{~#each (filter (action "isOdd") this.array) as |item|~}}
+      {{~#each (filter this.actions.isOdd this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
@@ -129,7 +129,7 @@ module('Integration | Helper | {{filter}}', function (hooks) {
     };
 
     await render(hbs`
-      {{~#each (filter (action "startsWithA") this.pets) as |item|~}}
+      {{~#each (filter this.actions.startsWithA this.pets) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);

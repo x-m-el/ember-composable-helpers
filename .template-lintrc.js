@@ -3,6 +3,6 @@
 module.exports = {
   extends: 'recommended',
   rules: {
-    'no-curly-component-invocation': { allow: ['dec'] },
+    'no-curly-component-invocation': { allow: ['dec', 'inc'] },
   },
 };
