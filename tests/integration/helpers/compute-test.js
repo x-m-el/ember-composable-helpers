@@ -14,7 +14,7 @@ module('Integration | Helper | {{compute}}', function (hooks) {
 
   test("It calls an action and returns it's value", async function (assert) {
     this.actions.square = (x) => x * x;
-    await render(hbs`{{compute (action "square") 4}}`);
+    await render(hbs`{{compute this.actions.square 4}}`);
 
     assert.dom().hasText('16', '4 squared is 16');
   });
