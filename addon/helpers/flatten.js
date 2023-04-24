@@ -1,9 +1,8 @@
 import { helper } from '@ember/component/helper';
-import { isArray as isEmberArray } from '@ember/array';
 import asArray from '../utils/as-array';
 
 export function flatten(array) {
-  if (!isEmberArray(array)) {
+  if (!Array.isArray(array)) {
     return array;
   }
 

@@ -1,17 +1,15 @@
-import { A as emberArray } from '@ember/array';
-import { isArray as isEmberArray } from '@ember/array';
 import { helper } from '@ember/component/helper';
 import asArray from '../utils/as-array';
 
 export function includes(needleOrNeedles, haystack) {
-  if (!isEmberArray(haystack)) {
+  if (!Array.isArray(haystack)) {
     return false;
   }
 
-  let needles = isEmberArray(needleOrNeedles)
+  let needles = Array.isArray(needleOrNeedles)
     ? needleOrNeedles
     : [needleOrNeedles];
-  let haystackAsEmberArray = emberArray(asArray(haystack));
+  let haystackAsEmberArray = asArray(haystack);
 
   return asArray(needles).every((needle) => {
     return haystackAsEmberArray.includes(needle);

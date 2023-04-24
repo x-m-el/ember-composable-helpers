@@ -1,14 +1,13 @@
 import { helper } from '@ember/component/helper';
-import { A, isArray as isEmberArray } from '@ember/array';
 
 export function objectAt(index, array) {
-  if (!isEmberArray(array)) {
+  if (!Array.isArray(array)) {
     return undefined;
   }
 
   index = parseInt(index, 10);
 
-  return A(array).objectAt(index);
+  return array.at(index);
 }
 
 export default helper(function ([index, array]) {

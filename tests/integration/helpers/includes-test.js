@@ -3,6 +3,7 @@ import { run } from '@ember/runloop';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
+import { tracked } from 'tracked-built-ins';
 
 module('Integration | Helper | {{includes}}', function (hooks) {
   setupRenderingTest(hooks);
@@ -16,11 +17,11 @@ module('Integration | Helper | {{includes}}', function (hooks) {
   });
 
   test('it checks if an array includes a non-primitive value', async function (assert) {
-    let games = [
+    let games = tracked([
       { name: 'Firewatch' },
       { name: 'Rocket League' },
       { name: 'CSGO' },
-    ];
+    ]);
     this.set('selectedGame', games[0]);
     this.set('wishlist', games);
 
@@ -39,11 +40,11 @@ module('Integration | Helper | {{includes}}', function (hooks) {
   });
 
   test('it watches for changes', async function (assert) {
-    let games = [
+    let games = tracked([
       { name: 'Firewatch' },
       { name: 'Rocket League' },
       { name: 'CSGO' },
-    ];
+    ]);
     this.set('selectedGame', games[0]);
     this.set('wishlist', games);
 
@@ -51,7 +52,7 @@ module('Integration | Helper | {{includes}}', function (hooks) {
 
     assert.dom().hasText('true', 'should render true');
 
-    run(() => this.wishlist.removeObject(games[0]));
+    run(() => this.wishlist.splice(0, 1));
 
     assert.dom().hasText('false', 'should render false');
 

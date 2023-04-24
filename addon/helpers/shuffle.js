@@ -1,5 +1,4 @@
 import { helper } from '@ember/component/helper';
-import { isArray as isEmberArray } from '@ember/array';
 import { typeOf } from '@ember/utils';
 
 export function shuffle(array, randomizer) {
@@ -24,7 +23,7 @@ export default helper(function ([randomizer, array]) {
     randomizer = undefined;
   }
 
-  if (!isEmberArray(array)) {
+  if (!Array.isArray(array)) {
     return [array];
   }
 
