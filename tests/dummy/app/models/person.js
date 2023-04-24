@@ -4,5 +4,5 @@ import { hasMany } from '@ember-data/model';
 
 export default class Person extends Model {
   @attr('string') name;
-  @hasMany('pet') pets;
+  @hasMany('pet', { async: true, inverse: 'owner' }) pets;
 }
