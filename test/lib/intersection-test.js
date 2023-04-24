@@ -1,6 +1,3 @@
-/* globals describe, it */
-/* jshint node: true, esnext: false, expr: true */
-/* jscs: disable */
 'use strict';
 
 var intersection = require('../../lib/intersection');
@@ -26,4 +23,3 @@ describe('intersection', function() {
     expect(result).to.eql(expectedResult);
   });
 });
-/* jscs:enable */

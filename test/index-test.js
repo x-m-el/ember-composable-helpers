@@ -1,6 +1,3 @@
-/* globals describe, it */
-/* jshint node: true, esnext: false, expr: true */
-/* jscs: disable */
 'use strict';
 
 var addonIndex = require('../index');
@@ -122,4 +119,3 @@ describe('index', function() {
     });
   });
 });
-/* jscs:enable */
