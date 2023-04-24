@@ -1,5 +1,5 @@
 import { hbs } from 'ember-cli-htmlbars';
-import { module, test, skip } from 'qunit';
+import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, settled } from '@ember/test-helpers';
 import { tracked } from 'tracked-built-ins';
