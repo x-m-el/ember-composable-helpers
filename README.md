@@ -98,7 +98,7 @@ If you don't need all the helpers, you can specify which to include or remove fr
 
 ```js
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
+  const app = new EmberApp(defaults, {
     'ember-composable-helpers': {
       only: ['inc', 'dec', 'pipe'],
       except: ['filter-by']

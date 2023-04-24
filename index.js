@@ -1,10 +1,10 @@
 'use strict';
 
-var Funnel = require('broccoli-funnel');
-var path = require('path');
-var intersection = require('./lib/intersection');
-var difference = require('./lib/difference');
-var StripBadReexports = require('./lib/strip-bad-reexports');
+const Funnel = require('broccoli-funnel');
+const path = require('path');
+const intersection = require('./lib/intersection');
+const difference = require('./lib/difference');
+const StripBadReexports = require('./lib/strip-bad-reexports');
 
 module.exports = {
   name: require('./package').name,
@@ -19,11 +19,11 @@ module.exports = {
 
     this.app = app;
 
-    var addonOptions =
+    const addonOptions =
       (this.parent && this.parent.options) ||
       (this.app && this.app.options) ||
       {};
-    var config = addonOptions[this.name] || {};
+    const config = addonOptions[this.name] || {};
     this.whitelist = this.generateWhitelist(config);
     this.blacklist = this.generateBlacklist(config);
   },
@@ -40,9 +40,9 @@ module.exports = {
   },
 
   filterHelpers: function (tree, regex) {
-    var whitelist = this.whitelist;
-    var blacklist = this.blacklist;
-    var _this = this;
+    const whitelist = this.whitelist;
+    const blacklist = this.blacklist;
+    const _this = this;
 
     // exit early if no opts defined
     if (
@@ -65,12 +65,12 @@ module.exports = {
   },
 
   exclusionFilter: function (name, regex, lists) {
-    var whitelist = lists.whitelist || [];
-    var blacklist = lists.blacklist || [];
-    var isAddonHelper = regex.test(name);
-    var helperName = path.basename(name, '.js');
-    var isWhitelisted = whitelist.indexOf(helperName) !== -1;
-    var isBlacklisted = blacklist.indexOf(helperName) !== -1;
+    const whitelist = lists.whitelist || [];
+    const blacklist = lists.blacklist || [];
+    const isAddonHelper = regex.test(name);
+    const helperName = path.basename(name, '.js');
+    const isWhitelisted = whitelist.indexOf(helperName) !== -1;
+    const isBlacklisted = blacklist.indexOf(helperName) !== -1;
 
     // non-helper, don't exclude
     if (!isAddonHelper) {
@@ -101,8 +101,8 @@ module.exports = {
   },
 
   generateWhitelist: function (addonConfig) {
-    var only = addonConfig.only || [];
-    var except = addonConfig.except || [];
+    const only = addonConfig.only || [];
+    const except = addonConfig.except || [];
 
     if (except && except.length) {
       return difference(only, except);
@@ -112,8 +112,8 @@ module.exports = {
   },
 
   generateBlacklist: function (addonConfig) {
-    var only = addonConfig.only || [];
-    var except = addonConfig.except || [];
+    const only = addonConfig.only || [];
+    const except = addonConfig.except || [];
 
     if (only && only.length) {
       return intersection(except, only);
