@@ -1,4 +1,3 @@
-import { isArray } from '@ember/array';
 import EmberObject from '@ember/object';
 
 function isIterable(value) {
@@ -36,8 +35,6 @@ function _asArray(maybeArray) {
   }
   // for perf-reasons falling back to e-array, instead of using it first
   if (Array.isArray(maybeArray)) {
-    return maybeArray;
-  } else if (isArray(maybeArray)) {
     return maybeArray;
   } else if (typeof maybeArray === 'object' && maybeArray === null) {
     return [];
