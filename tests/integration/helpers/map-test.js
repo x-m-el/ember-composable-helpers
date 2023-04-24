@@ -7,19 +7,15 @@ import { tracked } from 'tracked-built-ins';
 module('Integration | Helper | {{map}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('It maps by value', async function (assert) {
     this.set('array', tracked([{ name: 'a' }, { name: 'b' }, { name: 'c' }]));
 
-    this.actions.getName = function ({ name }) {
+    this.getName = function ({ name }) {
       return name;
     };
 
     await render(hbs`
-      {{~#each (map this.actions.getName this.array) as |name|~}}
+      {{~#each (map this.getName this.array) as |name|~}}
         {{~name~}}
       {{~/each~}}
     `);
@@ -32,12 +28,12 @@ module('Integration | Helper | {{map}}', function (hooks) {
 
     this.set('array', array);
 
-    this.actions.getName = function ({ name }) {
+    this.getName = function ({ name }) {
       return name;
     };
 
     await render(hbs`
-      {{~#each (map this.actions.getName this.array) as |name|~}}
+      {{~#each (map this.getName this.array) as |name|~}}
         {{~name~}}
       {{~/each~}}
     `);
@@ -51,14 +47,14 @@ module('Integration | Helper | {{map}}', function (hooks) {
   });
 
   test('it allows null array', async function (assert) {
-    this.actions.getName = function ({ name }) {
+    this.getName = function ({ name }) {
       return name;
     };
     this.set('array', null);
 
     await render(hbs`
       this is all that will render
-      {{#each (map this.actions.getName this.array) as |value|}}
+      {{#each (map this.getName this.array) as |value|}}
         {{value}}
       {{/each}}
     `);
@@ -67,14 +63,14 @@ module('Integration | Helper | {{map}}', function (hooks) {
   });
 
   test('it allows undefined array', async function (assert) {
-    this.actions.getName = function ({ name }) {
+    this.getName = function ({ name }) {
       return name;
     };
     this.set('array', undefined);
 
     await render(hbs`
       this is all that will render
-      {{#each (map this.actions.getName this.array) as |value|}}
+      {{#each (map this.getName this.array) as |value|}}
         {{value}}
       {{/each}}
     `);

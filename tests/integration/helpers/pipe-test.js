@@ -7,18 +7,14 @@ import { render, click } from '@ember/test-helpers';
 module('Integration | Helper | {{pipe}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('it pipes actions', async function (assert) {
     this.set('value', 0);
-    this.actions.add = (x, y) => x + y;
-    this.actions.square = (x) => x * x;
-    this.actions.squareRoot = (x) => this.set('value', Math.sqrt(x));
+    this.add = (x, y) => x + y;
+    this.square = (x) => x * x;
+    this.squareRoot = (x) => this.set('value', Math.sqrt(x));
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{on 'click' (fn (pipe this.actions.add this.actions.square this.actions.squareRoot) 2 4)}}>
+      <button type="button" {{on 'click' (fn (pipe this.add this.square this.squareRoot) 2 4)}}>
         Calculate
       </button>
     `);
@@ -30,13 +26,13 @@ module('Integration | Helper | {{pipe}}', function (hooks) {
 
   test('it handles promises', async function (assert) {
     this.set('value', 0);
-    this.actions.add = (x, y) => x + y;
-    this.actions.square = (x) => x * x;
-    this.actions.squareRoot = (x) => this.set('value', Math.sqrt(x));
-    this.actions.resolvify = resolve;
+    this.add = (x, y) => x + y;
+    this.square = (x) => x * x;
+    this.squareRoot = (x) => this.set('value', Math.sqrt(x));
+    this.resolvify = resolve;
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{on 'click' (fn (pipe this.actions.add this.actions.square this.actions.resolvify this.actions.squareRoot) 2 4)}}>
+      <button type="button" {{on 'click' (fn (pipe this.add this.square this.resolvify this.squareRoot) 2 4)}}>
         Calculate
       </button>
     `);

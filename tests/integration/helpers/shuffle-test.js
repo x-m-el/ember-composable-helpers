@@ -7,10 +7,6 @@ import { tracked } from 'tracked-built-ins';
 module('Integration | Helper | {{shuffle}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('It shuffles array', async function (assert) {
     this.set('array', tracked([1, 2]));
     await render(hbs`
@@ -24,9 +20,9 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
 
   test('It shuffles array using passed in randomizer', async function (assert) {
     this.set('array', tracked([1, 2, 3, 4]));
-    this.actions.fake = () => 0;
+    this.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
+      {{~#each (shuffle this.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -36,9 +32,9 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
 
   test('It handles a non-ember array', async function (assert) {
     this.set('array', [1, 2, 3, 4]);
-    this.actions.fake = () => 0;
+    this.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
+      {{~#each (shuffle this.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -48,9 +44,9 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
 
   test('It does not mutate the original array', async function (assert) {
     this.set('array', tracked([1, 2, 3, 4]));
-    this.actions.fake = () => 0;
+    this.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
+      {{~#each (shuffle this.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -76,9 +72,9 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
 
   test('It recomputes the shuffle if the array changes', async function (assert) {
     this.set('array', tracked([1, 2, 3, 4]));
-    this.actions.fake = () => 0;
+    this.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
+      {{~#each (shuffle this.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);
@@ -93,9 +89,9 @@ module('Integration | Helper | {{shuffle}}', function (hooks) {
   test('It recomputes the shuffle if an item in the array changes', async function (assert) {
     let array = tracked([1, 2, 3, 4]);
     this.set('array', array);
-    this.actions.fake = () => 0;
+    this.fake = () => 0;
     await render(hbs`
-      {{~#each (shuffle this.actions.fake this.array) as |value|~}}
+      {{~#each (shuffle this.fake this.array) as |value|~}}
         {{value}}
       {{~/each~}}
     `);

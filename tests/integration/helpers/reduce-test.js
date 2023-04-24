@@ -7,17 +7,12 @@ import { tracked } from 'tracked-built-ins';
 module('Integration | Helper | {{reduce}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('It accepts a callback', async function (assert) {
     this.set('array', tracked([1, 2, 3]));
 
-    this.actions.sum = (previousValue, currentValue) =>
-      previousValue + currentValue;
+    this.sum = (previousValue, currentValue) => previousValue + currentValue;
 
-    await render(hbs`{{reduce this.actions.sum 0 this.array}}`);
+    await render(hbs`{{reduce this.sum 0 this.array}}`);
 
     assert.dom().hasText('6');
   });
@@ -27,10 +22,9 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
 
     this.set('array', array);
 
-    this.actions.sum = (previousValue, currentValue) =>
-      previousValue + currentValue;
+    this.sum = (previousValue, currentValue) => previousValue + currentValue;
 
-    await render(hbs`{{reduce this.actions.sum 0 this.array}}`);
+    await render(hbs`{{reduce this.sum 0 this.array}}`);
 
     assert.dom().hasText('6');
 
@@ -44,10 +38,9 @@ module('Integration | Helper | {{reduce}}', function (hooks) {
     this.set('array', tracked([1, 2, 3]));
     this.set('initialValue', 0);
 
-    this.actions.sum = (previousValue, currentValue) =>
-      previousValue + currentValue;
+    this.sum = (previousValue, currentValue) => previousValue + currentValue;
 
-    await render(hbs`{{reduce this.actions.sum this.initialValue this.array}}`);
+    await render(hbs`{{reduce this.sum this.initialValue this.array}}`);
 
     assert.dom().hasText('6');
 

@@ -7,18 +7,14 @@ import { render, click } from '@ember/test-helpers';
 module('Integration | Helper | {{queue}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('it queues actions', async function (assert) {
-    this.actions.doAThing = () => null;
-    this.actions.process = (x) => this.set('value', x * x);
-    this.actions.undoAThing = () => null;
+    this.doAThing = () => null;
+    this.process = (x) => this.set('value', x * x);
+    this.undoAThing = () => null;
     this.set('value', 2);
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{on 'click' (fn (queue this.actions.doAThing this.actions.process this.actions.undoAThing) this.value)}}>
+      <button type="button" {{on 'click' (fn (queue this.doAThing this.process this.undoAThing) this.value)}}>
         Calculate
       </button>
     `);
@@ -30,11 +26,11 @@ module('Integration | Helper | {{queue}}', function (hooks) {
 
   test('it handles promises', async function (assert) {
     this.set('value', 3);
-    this.actions.doAThingThatTakesTime = resolve;
-    this.actions.process = (x) => this.set('value', x * x);
+    this.doAThingThatTakesTime = resolve;
+    this.process = (x) => this.set('value', x * x);
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{on 'click' (fn (queue this.actions.doAThingThatTakesTime this.actions.process) this.value)}}>
+      <button type="button" {{on 'click' (fn (queue this.doAThingThatTakesTime this.process) this.value)}}>
         Calculate
       </button>
     `);

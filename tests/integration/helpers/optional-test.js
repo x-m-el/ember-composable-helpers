@@ -6,10 +6,6 @@ import { render, click } from '@ember/test-helpers';
 module('Integration | Helper | {{optional}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('If the action does not exist, it passes a no-op function', async function (assert) {
     assert.expect(0);
     await render(
@@ -29,9 +25,9 @@ module('Integration | Helper | {{optional}}', function (hooks) {
 
   test('Works in a pipe', async function (assert) {
     assert.expect(1);
-    this.actions.check = (value) => assert.strictEqual(value, 42);
+    this.check = (value) => assert.strictEqual(value, 42);
     await render(hbs`
-      <button {{on 'click' (fn (pipe (optional this.handler) this.actions.check) 42)}} type="button"></button> `);
+      <button {{on 'click' (fn (pipe (optional this.handler) this.check) 42)}} type="button"></button> `);
     await click('button');
   });
 });

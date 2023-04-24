@@ -7,10 +7,6 @@ import { tracked } from 'tracked-built-ins';
 module('Integration | Helper | {{sort-by}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('It sorts by a value ascending', async function (assert) {
     this.set('array', [
       { name: 'c' },
@@ -232,7 +228,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
   test('It accepts a function sort property', async function (assert) {
     this.set('array', tracked([{ name: 'c' }, { name: 'a' }, { name: 'b' }]));
 
-    this.actions.sortBy = (a, b) => {
+    this.sortBy = (a, b) => {
       if (a.name > b.name) {
         return 1;
       } else if (a.name < b.name) {
@@ -243,7 +239,7 @@ module('Integration | Helper | {{sort-by}}', function (hooks) {
     };
 
     await render(hbs`
-      {{~#each (sort-by this.actions.sortBy this.array) as |user|~}}
+      {{~#each (sort-by this.sortBy this.array) as |user|~}}
         {{~user.name~}}
       {{~/each~}}
     `);

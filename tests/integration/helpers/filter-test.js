@@ -7,10 +7,6 @@ import { tracked } from 'tracked-built-ins';
 module('Integration | Helper | {{filter}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('It filters by truthiness', async function (assert) {
     this.set(
       'array',
@@ -23,12 +19,12 @@ module('Integration | Helper | {{filter}}', function (hooks) {
       ])
     );
 
-    this.actions.truthyFoo = function ({ foo }) {
+    this.truthyFoo = function ({ foo }) {
       return !!foo;
     };
 
     await render(hbs`
-      {{~#each (filter this.actions.truthyFoo this.array) as |item|~}}
+      {{~#each (filter this.truthyFoo this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
@@ -45,12 +41,12 @@ module('Integration | Helper | {{filter}}', function (hooks) {
 
     this.set('array', array);
 
-    this.actions.getFoo = function ({ foo }) {
+    this.getFoo = function ({ foo }) {
       return foo;
     };
 
     await render(hbs`
-      {{~#each (filter this.actions.getFoo this.array) as |item|~}}
+      {{~#each (filter this.getFoo this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
@@ -71,10 +67,10 @@ module('Integration | Helper | {{filter}}', function (hooks) {
       ])
     );
 
-    this.actions.isOdd = ({ foo }) => foo % 2 !== 0;
+    this.isOdd = ({ foo }) => foo % 2 !== 0;
 
     await render(hbs`
-      {{~#each (filter this.actions.isOdd this.array) as |item|~}}
+      {{~#each (filter this.isOdd this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
@@ -122,12 +118,12 @@ module('Integration | Helper | {{filter}}', function (hooks) {
 
     this.set('pets', pets);
 
-    this.actions.startsWithA = function ({ name }) {
+    this.startsWithA = function ({ name }) {
       return name.startsWith('a');
     };
 
     await render(hbs`
-      {{~#each (filter this.actions.startsWithA this.pets) as |item|~}}
+      {{~#each (filter this.startsWithA this.pets) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);

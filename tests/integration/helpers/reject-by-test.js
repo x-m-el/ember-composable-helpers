@@ -8,10 +8,6 @@ import { tracked } from 'tracked-built-ins';
 module('Integration | Helper | {{reject-by}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('It reject by value', async function (assert) {
     this.set(
       'array',
@@ -112,10 +108,10 @@ module('Integration | Helper | {{reject-by}}', function (hooks) {
       ])
     );
 
-    this.actions.isEven = (value) => value % 2 === 0;
+    this.isEven = (value) => value % 2 === 0;
 
     await render(hbs`
-      {{~#each (reject-by 'foo' this.actions.isEven this.array) as |item|~}}
+      {{~#each (reject-by 'foo' this.isEven this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);

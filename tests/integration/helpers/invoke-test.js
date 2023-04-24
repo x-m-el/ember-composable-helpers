@@ -7,20 +7,16 @@ import { render, click } from '@ember/test-helpers';
 module('Integration | Helper | {{invoke}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('it invokes methods and handles promises', async function (assert) {
     this.set('value', 2);
     this.set('serverSideComputation', function (x) {
       return resolve(x * x);
     });
-    this.actions.setValue = (x) => this.set('value', x);
+    this.setValue = (x) => this.set('value', x);
 
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{on 'click' (pipe (invoke "serverSideComputation" 2 this) this.actions.setValue)}}>
+      <button type="button" {{on 'click' (pipe (invoke "serverSideComputation" 2 this) this.setValue)}}>
         Calculate
       </button>
     `);
@@ -41,7 +37,7 @@ module('Integration | Helper | {{invoke}}', function (hooks) {
     }
 
     this.set('model', [new Square(1), new Square(2), new Square(3)]);
-    this.actions.sumAreas = (x) => {
+    this.sumAreas = (x) => {
       this.set(
         'value',
         x.reduce((a, b) => a + b)
@@ -50,7 +46,7 @@ module('Integration | Helper | {{invoke}}', function (hooks) {
 
     await render(hbs`
       <p>{{this.value}}</p>
-      <button type="button" {{on 'click' (pipe (invoke "calcArea" this.model) this.actions.sumAreas)}}>
+      <button type="button" {{on 'click' (pipe (invoke "calcArea" this.model) this.sumAreas)}}>
         Calculate
       </button>
     `);

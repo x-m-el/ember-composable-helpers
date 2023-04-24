@@ -8,10 +8,6 @@ import { tracked } from 'tracked-built-ins';
 module('Integration | Helper | {{filter-by}}', function (hooks) {
   setupRenderingTest(hooks);
 
-  hooks.beforeEach(function () {
-    this.actions = {};
-  });
-
   test('It filters by value', async function (assert) {
     this.set(
       'array',
@@ -156,10 +152,10 @@ module('Integration | Helper | {{filter-by}}', function (hooks) {
       ])
     );
 
-    this.actions.isOdd = (value) => value % 2 === 1;
+    this.isOdd = (value) => value % 2 === 1;
 
     await render(hbs`
-      {{~#each (filter-by 'foo' this.actions.isOdd this.array) as |item|~}}
+      {{~#each (filter-by 'foo' this.isOdd this.array) as |item|~}}
         {{~item.name~}}
       {{~/each~}}
     `);
