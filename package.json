@@ -1,6 +1,6 @@
 {
   "name": "@eflexsystems/ember-composable-helpers",
-  "version": "5.0.0",
+  "version": "5.0.0-1",
   "description": "Composable helpers for Ember",
   "directories": {
     "doc": "doc",
@@ -71,11 +71,11 @@
     "stylelint": "^15.4.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-prettier": "^3.0.0",
-    "tracked-built-ins": "3.2.0",
+    "tracked-built-ins": "^3.2.0",
     "webpack": "^5.78.0"
   },
   "peerDependencies": {
-    "ember-source": "^4.0.0"
+    "ember-source": ">= 4.0.0"
   },
   "engines": {
     "node": "14.* || 16.* || >= 18"
@@ -96,11 +96,11 @@
   "license": "MIT",
   "author": "Dockyard <oss@dockyard.com>",
   "dependencies": {
-    "@babel/core": "^7.0.0",
-    "broccoli-funnel": "^3.0.1",
-    "ember-cli-babel": "^7.26.11",
-    "ember-cli-htmlbars": "^6.2.0",
-    "resolve": "^1.10.0"
+    "@babel/core": "^7.22.10",
+    "broccoli-funnel": "^3.0.8",
+    "ember-cli-babel": "^8.0.0",
+    "ember-cli-htmlbars": "^6.3.0",
+    "resolve": "^1.22.4"
   },
   "ember": {
     "edition": "octane"
