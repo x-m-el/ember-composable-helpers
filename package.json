@@ -1,6 +1,13 @@
 {
-  "name": "@eflexsystems/ember-composable-helpers",
+  "name": "@x-m-el/ember-composable-helpers",
   "version": "5.1.3",
+  "publishConfig": {
+    "@x-m-el:registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/x-m-el/ember-composable-helpers.git"
+  },
   "description": "Composable helpers for Ember",
   "directories": {
     "doc": "doc",
@@ -92,7 +99,6 @@
     "drop",
     "compute"
   ],
-  "repository": "https://github.com/eflexsystems/ember-composable-helpers",
   "license": "MIT",
   "author": "Dockyard <oss@dockyard.com>",
   "dependencies": {
